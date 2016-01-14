@@ -15,7 +15,7 @@ type alias View =
 
 
 model : Model
-model = List.map(\n -> { pitch = n, value = V4 }) [2..10]
+model = List.map(\n -> { pitch = n, value = if n % 2 == 0 then V4 else V8 }) [2..10]
 
 
 view : View
