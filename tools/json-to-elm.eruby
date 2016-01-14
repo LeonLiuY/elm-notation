@@ -1,0 +1,17 @@
+<%
+    if meta.is_a? Hash %>
+        <%= '  ' * level %>{
+        <% meta.each do |key, value| %>
+        <%= '  ' * level + key %> = <%= render[value, level+1] %>
+        <% end %>
+        <%= '  ' * level %>}<%
+    elsif meta.is_a? Array %>
+        <%= '  ' * level %>[
+        <% meta.each do |value| %>
+        <%= render[value, level+1] %>
+        <% end %>
+        <%= '  ' * level %>]<%
+    else %>
+        <%= '  ' * level + meta.inspect %> <%
+    end
+%>
