@@ -3,18 +3,15 @@
     <head>
         <title>Notation</title>
         <script src="elm.js" charset="utf-8"></script>
-        <style media="screen">
-            @font-face {
-                font-family: 'Bravura';
-                src: url('/fonts/Bravura.woff') format('woff');
-            }
-        </style>
     </head>
     <body>
         <div id='notation'></div>
     </body>
     <script charset="utf-8">
-        var div = document.getElementById('notation');
-        Elm.embed(Elm.Main, div);
+        new FontFace('Bravura', 'url(/fonts/Bravura.woff)').load().then(function(fontface){
+            document.fonts.add(fontface);
+            var div = document.getElementById('notation');
+            Elm.embed(Elm.Main, div);
+        });
     </script>
 </html>
