@@ -26,10 +26,10 @@ stringOfNoteValue value =
         V128 -> "\xe1df"
         V256 -> "\xe1e1"
 
-glyph : String -> Text.Text
-glyph str = Text.fromString str |> Text.height Var.fontSize |> Text.typeface ["Bravura"]
+glyph : String -> Form
+glyph str = Text.fromString str |> Text.height Var.fontSize |> Text.typeface ["Bravura"] |> leftAligned  |> toForm
 
 
 note : Notation.Model.Note -> Float -> Float -> Form
 
-note n x y = glyph (stringOfNoteValue n.value) |> leftAligned  |> toForm |> move (x, y + (toFloat(n.pitch) - 10) * Var.keyMeasure / 2 )
+note n x y = glyph (stringOfNoteValue n.value) |> move (x, y + (toFloat(n.pitch) - 10) * Var.keyMeasure / 2 )

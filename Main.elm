@@ -4,6 +4,7 @@ import Graphics.Collage exposing (..)
 import Graphics.Element exposing (..)
 import Notation.Model exposing (..)
 import Notation.Draw exposing (..)
+import Notation.Variables as Var
 
 
 type alias Model =
@@ -23,8 +24,8 @@ view notes =
     collage
         1000
         1000 <|
-        fiveLineStaff 800 -400 400 ::
-        List.indexedMap (\i n -> note n (toFloat(i + 1) * 40 - 400)  400) model
+        fiveLineStaff 800 -400 400 :: (glyph "\xe050" |> move (-350, 400 - 3 * Var.staffSpace)) ::
+        List.indexedMap (\i n -> note n (toFloat(i + 1) * 40 - 300)  400) model
 
 
 main : Element
