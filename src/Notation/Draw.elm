@@ -1,4 +1,4 @@
-module Notation.Draw (staffLine, fiveLineStaff, noteHead, stem) where
+module Notation.Draw (staffLine, fiveLineStaff, noteHead, stem, clef, Clef, gClef, fClef, NoteHead, whole, half, black) where
 
 {-| Draw kinds of music notations.
 
@@ -8,14 +8,56 @@ Each component specifies the detailed formation of the component.
 All length parameters are the measurements expressed in staff spaces.
 
 # Components
-@docs staffLine, fiveLineStaff, noteHead, stem
+@docs staffLine, fiveLineStaff, stem, Clef, gClef, fClef,clef,  NoteHead, whole, half, black ,noteHead
 -}
 
 import Graphics.Collage exposing (..)
 import Graphics.Element exposing (..)
-import Notation.Model exposing (..)
 import Notation.Variables as Var exposing (keyMeasure)
 import Text
+
+
+{-| -}
+type Clef
+    = GClef
+    | FClef
+
+
+{-| -}
+gClef : Clef
+gClef =
+    GClef
+
+
+{-| -}
+fClef : Clef
+fClef =
+    FClef
+
+
+{-| -}
+type NoteHead
+    = Whole
+    | Half
+    | Black
+
+
+{-| -}
+whole : NoteHead
+whole =
+    Whole
+
+
+{-| -}
+half : NoteHead
+half =
+    Half
+
+
+{-| -}
+black : NoteHead
+black =
+    Black
 
 
 {-| Draw a single staff line from (0, 0) to (length, 0). The width of the line are equally divided by the x-axis.
@@ -54,6 +96,26 @@ noteHead value =
     glyph (stringOfNoteValue value)
 
 
+{-| Draw a celf, centered at (0, 0)
+
+    celf gCelf
+-}
+clef : Clef -> Form
+clef c =
+    glyph (stringOfClef c)
+
+
+
+{- PRIVATES -}
+
+
+{-| Draw glyph
+-}
+glyph : String -> Form
+glyph str =
+    Text.fromString str |> Text.height Var.fontSize |> Text.typeface [ "Bravura" ] |> leftAligned |> toForm
+
+
 stringOfNoteValue : NoteHead -> String
 stringOfNoteValue value =
     case value of
@@ -67,12 +129,11 @@ stringOfNoteValue value =
             "\xE0A4"
 
 
+stringOfClef : Clef -> String
+stringOfClef c =
+    case c of
+        GClef ->
+            "\xE050"
 
-{- PRIVATES -}
-
-
-{-| Draw glyph
--}
-glyph : String -> Form
-glyph str =
-    Text.fromString str |> Text.height Var.fontSize |> Text.typeface [ "Bravura" ] |> leftAligned |> toForm
+        FClef ->
+            "\xE062"
