@@ -1,4 +1,4 @@
-module Notation.Draw (staffLine, fiveLineStaff, noteHead, whole, half, black, stem) where
+module Notation.Draw (staffLine, fiveLineStaff, noteHead, stem) where
 
 {-| Draw kinds of music notations.
 
@@ -8,11 +8,12 @@ Each component specifies the detailed formation of the component.
 All length parameters are the measurements expressed in staff spaces.
 
 # Components
-@docs staffLine, fiveLineStaff, noteHead, whole, half, black, stem
+@docs staffLine, fiveLineStaff, noteHead, stem
 -}
 
 import Graphics.Collage exposing (..)
 import Graphics.Element exposing (..)
+import Notation.Model exposing (..)
 import Notation.Variables as Var exposing (keyMeasure)
 import Text
 
@@ -42,30 +43,6 @@ stem length =
 fiveLineStaff : Float -> Form
 fiveLineStaff length =
     group <| List.map (\n -> moveY (0 - n * Var.staffSpace) <| staffLine length) [0..4]
-
-
-type NoteHead
-    = Whole
-    | Half
-    | Black
-
-
-{-| -}
-whole : NoteHead
-whole =
-    Whole
-
-
-{-| -}
-half : NoteHead
-half =
-    Half
-
-
-{-| -}
-black : NoteHead
-black =
-    Black
 
 
 {-| Draw a note head, centered at (0, 0)

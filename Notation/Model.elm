@@ -17,3 +17,27 @@ type alias Note =
     { pitch : Int
     , value : NoteValue
     }
+
+
+type NoteHead
+    = Whole
+    | Half
+    | Black
+
+
+{-| -}
+whole : NoteHead
+whole =
+    Whole
+
+
+{-| -}
+half : NoteHead
+half =
+    Half
+
+
+{-| -}
+black : NoteHead
+black =
+    Black
