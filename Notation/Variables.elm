@@ -1,7 +1,7 @@
 module Notation.Variables where
 
 keyMeasure : Float
-keyMeasure = 8
+keyMeasure = 20
 
 staffSpace : Float
 staffSpace = keyMeasure

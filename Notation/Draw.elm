@@ -1,35 +1,64 @@
-module Notation.Draw where
+module Notation.Draw (staffLine, fiveLineStaff, noteHead, whole, half, black) where
+{-| Draw kinds of music notations.
 
+This module only draw raw components near coordinate (0, 0). Transformation & positioning should be controlled outside.
+Each component specifies the detailed formation of the component.
+
+All length parameters are the measurements expressed in staff spaces.
+
+# Components
+@docs staffLine, fiveLineStaff, noteHead, whole, half, black
+-}
 import Graphics.Collage exposing (..)
 import Graphics.Element exposing (..)
 import Notation.Variables as Var
 import Text
-import Notation.Model exposing (..)
-
-staffLine : Float -> Float -> Float -> Form
-staffLine length x y = segment (x, y) (x + length, y) |> traced {defaultLine | width= Var.staffLineThickness}
-
-fiveLineStaff : Float -> Float -> Float -> Form
-fiveLineStaff length x y = group <| List.map(\n -> staffLine length x (y - n * Var.staffSpace)) [0 .. 4]
 
 
-stringOfNoteValue : NoteValue -> String
-stringOfNoteValue value =
-    case value of
-        V1 -> "\xe1d2"
-        V2 -> "\xe1d3"
-        V4 -> "\xe1d5"
-        V8 -> "\xe1d7"
-        V16 -> "\xe1d9"
-        V32 -> "\xe1db"
-        V64 -> "\xe1dd"
-        V128 -> "\xe1df"
-        V256 -> "\xe1e1"
-
+{-| Draw glyph
+-}
 glyph : String -> Form
 glyph str = Text.fromString str |> Text.height Var.fontSize |> Text.typeface ["Bravura"] |> leftAligned  |> toForm
 
 
-note : Notation.Model.Note -> Float -> Float -> Form
+{-| Draw a single staff line from (0, 0) to (length, 0). The width of the line are equally divided by the x-axis.
 
-note n x y = glyph (stringOfNoteValue n.value) |> move (x, y + (toFloat(n.pitch) - 10) * Var.keyMeasure / 2 )
+    staffLine 200
+-}
+staffLine : Float -> Form
+staffLine length = segment (0, 0) (0 + length * Var.keyMeasure, 0) |> traced {defaultLine | width= Var.staffLineThickness}
+
+
+{-| Draw a standard five-line staff, where the top line is exactly same length & location with a single staff line (staffLine length)
+
+    fiveLineStaff 200
+-}
+fiveLineStaff : Float -> Form
+fiveLineStaff length = group <| List.map(\n -> moveY (0 - n * Var.staffSpace) <| staffLine length ) [0 .. 4]
+
+type NoteHead = Whole | Half | Black
+
+{-|-}
+whole: NoteHead
+whole = Whole
+{-|-}
+half: NoteHead
+half = Half
+{-|-}
+black: NoteHead
+black = Black
+
+{-| Draw a note head, centered at (0, 0)
+
+    noteHead whole
+-}
+noteHead: NoteHead -> Form
+
+noteHead value = glyph (stringOfNoteValue value)
+
+stringOfNoteValue : NoteHead -> String
+stringOfNoteValue value =
+    case value of
+        Whole -> "\xe0a2"
+        Half -> "\xe0a3"
+        Black -> "\xe0a4"
