@@ -5,6 +5,7 @@ import Notation.Draw exposing (..)
 import Notation.Variables exposing (keyMeasure)
 import Color exposing (darkGrey)
 import Text
+import Window
 
 
 keyM : Int -> Int
@@ -19,8 +20,8 @@ axis name form =
             (keyM 15)
             (keyM 15)
         <| List.concat
-            [ [ traced (dashed Color.black) <| segment ( keyMeasure * -5, 0 ) ( keyMeasure * 5, 0 )
-              , traced (dashed Color.black) <| segment ( 0, keyMeasure * -5 ) ( 0, keyMeasure * 5 )
+            [ [ traced (dashed <| Color.greyscale 0.5) <| segment ( keyMeasure * -5, 0 ) ( keyMeasure * 5, 0 )
+              , traced (dashed <| Color.greyscale 0.5) <| segment ( 0, keyMeasure * -5 ) ( 0, keyMeasure * 5 )
               ]
             , List.concatMap
                 (\n ->
@@ -38,7 +39,7 @@ partition : Int -> List a -> List (List a)
 
 partition n list =
     if List.length list <= n then [list]
-    else (List.take n list):: (partition n (List.drop n list))
+    else (List.take (max n 1) list):: (partition (max n 1) (List.drop (max n 1) list))
 
 
 renderFlowGrid : Int -> List Element -> Element
@@ -46,14 +47,16 @@ renderFlowGrid : Int -> List Element -> Element
 renderFlowGrid n elements =
     List.map (\elements -> flow right elements) (partition n elements) |> flow down
 
-main : Element
+main : Signal Element
 main =
-    renderFlowGrid 6
+    Signal.map (\width ->
+        renderFlowGrid (width // (keyM 15))
         [ axis "staffLine 4" <| staffLine 4
-        , axis "fiveLineStaff 4" <| fiveLineStaff 4
+        , axis "fiveLineStaff 4" <| staff5Line 4
+        , axis "stem 4" <| stem 4
         , axis "noteHead whole" <| noteHead whole
         , axis "noteHead half" <| noteHead half
         , axis "noteHead black" <| noteHead black
         , axis "clef gClef" <| clef gClef
         , axis "clef fClef" <| clef fClef
-        ]
+        ]) Window.width

@@ -1,4 +1,4 @@
-module Notation.Draw (staffLine, fiveLineStaff, noteHead, stem, clef, Clef, gClef, fClef, NoteHead, whole, half, black) where
+module Notation.Draw (staffLine, staff5Line, noteHead, stem, clef, Clef, gClef, fClef, NoteHead, whole, half, black) where
 
 {-| Draw kinds of music notations.
 
@@ -8,7 +8,7 @@ Each component specifies the detailed formation of the component.
 All length parameters are the measurements expressed in staff spaces.
 
 # Components
-@docs staffLine, fiveLineStaff, stem, Clef, gClef, fClef,clef,  NoteHead, whole, half, black ,noteHead
+@docs staffLine, staff5Line, stem, Clef, gClef, fClef,clef,  NoteHead, whole, half, black ,noteHead
 -}
 
 import Graphics.Collage exposing (..)
@@ -60,16 +60,16 @@ black =
     Black
 
 
-{-| Draw a single staff line from (0, 0) to (length, 0). The width of the line are equally divided by the x-axis.
+{-| Draw a single staff line from (-length/2, 0) to (length/2 , 0). The thickness of the line are equally divided by the x-axis.
 
     staffLine 200
 -}
 staffLine : Float -> Form
 staffLine length =
-    segment ( 0, 0 ) ( 0 + length * keyMeasure, 0 ) |> traced { defaultLine | width = Var.staffLineThickness }
+    segment ( 0 - length / 2 * keyMeasure, 0 ) ( 0 + length / 2 * keyMeasure, 0 ) |> traced { defaultLine | width = Var.staffLineThickness }
 
 
-{-| Draw a stem line from (0, 0) to (0, length). The width of the line are equally divided by the y-axis.
+{-| Draw a stem line from (0, 0) to (0, length). The thickness of the line are equally divided by the y-axis.
 
     stem 200
 -}
@@ -78,13 +78,13 @@ stem length =
     segment ( 0, 0 ) ( 0, 0 + length * keyMeasure ) |> traced { defaultLine | width = Var.stemThickness }
 
 
-{-| Draw a standard five-line staff, where the top line is exactly same length & location with a single staff line (staffLine length)
+{-| Draw a standard five-line staff, where the middle line lies on the x-axis from (-length/2, 0) to (length/2 , 0).
 
-    fiveLineStaff 200
+    staff5Line 200
 -}
-fiveLineStaff : Float -> Form
-fiveLineStaff length =
-    group <| List.map (\n -> moveY (0 - n * Var.staffSpace) <| staffLine length) [0..4]
+staff5Line : Float -> Form
+staff5Line length =
+    group <| List.map (\n -> moveY (0 - n * Var.staffSpace) <| staffLine length) [-2..2]
 
 
 {-| Draw a note head, centered at (0, 0)
