@@ -1,3 +1,4 @@
+module Main (..) where
 
 import Graphics.Collage exposing (..)
 import Graphics.Element exposing (..)
@@ -15,10 +16,9 @@ keyM i =
 
 axis : String -> Form -> Element
 axis name form =
-    container (keyM 15) (keyM 15) middle
-        <| collage
-            (keyM 15)
-            (keyM 15)
+    collage
+        (keyM 15)
+        (keyM 15)
         <| List.concat
             [ [ traced (dashed <| Color.greyscale 0.5) <| segment ( keyMeasure * -5, 0 ) ( keyMeasure * 5, 0 )
               , traced (dashed <| Color.greyscale 0.5) <| segment ( 0, keyMeasure * -5 ) ( 0, keyMeasure * 5 )
@@ -32,31 +32,37 @@ axis name form =
                     ]
                 )
                 [1..5]
-            , [form, Text.fromString name |> leftAligned |> toForm |> moveY (keyMeasure * -6)]
+            , [ form, Text.fromString name |> leftAligned |> toForm |> moveY (keyMeasure * -6) ]
             ]
 
-partition : Int -> List a -> List (List a)
 
+partition : Int -> List a -> List (List a)
 partition n list =
-    if List.length list <= n then [list]
-    else (List.take (max n 1) list):: (partition (max n 1) (List.drop (max n 1) list))
+    if List.length list <= n then
+        [ list ]
+    else
+        (List.take (max n 1) list) :: (partition (max n 1) (List.drop (max n 1) list))
 
 
 renderFlowGrid : Int -> List Element -> Element
-
 renderFlowGrid n elements =
     List.map (\elements -> flow right elements) (partition n elements) |> flow down
 
+
 main : Signal Element
 main =
-    Signal.map (\width ->
-        renderFlowGrid (width // (keyM 15))
-        [ axis "staffLine 4" <| staffLine 4
-        , axis "fiveLineStaff 4" <| staff5Line 4
-        , axis "stem 4" <| stem 4
-        , axis "noteHead whole" <| noteHead whole
-        , axis "noteHead half" <| noteHead half
-        , axis "noteHead black" <| noteHead black
-        , axis "clef gClef" <| clef gClef
-        , axis "clef fClef" <| clef fClef
-        ]) Window.width
+    Signal.map
+        (\width ->
+            renderFlowGrid
+                (width // (keyM 15))
+                [ axis "staffLine 4" <| staffLine 4
+                , axis "fiveLineStaff 4" <| staff5Line 4
+                , axis "stem 4" <| stem 4
+                , axis "noteHead whole" <| noteHead whole
+                , axis "noteHead half" <| noteHead half
+                , axis "noteHead black" <| noteHead black
+                , axis "clef gClef" <| clef gClef
+                , axis "clef fClef" <| clef fClef
+                ]
+        )
+        Window.width
