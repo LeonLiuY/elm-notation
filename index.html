@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Notation</title>
+    <script src="elm.js" charset="utf-8"></script>
+    <script src="lib/fontfaceobserver.js" charset="utf-8"></script>
+    <style media="screen">
+        @font-face {
+            font-family: Bravura;
+            src: url(fonts/Bravura.woff);
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='notation' class='noselect'></div>
+</body>
+<script charset="utf-8">
+
+    //Need to wait for music font loading, otherwise we could not get the correct size (width, height) of the glyphs.
+    var observer = new FontFaceObserver('Bravura');
+    observer.check("\ue000\ue001\ue002\ue003\ue004\ue005").then(function() {
+        var div = document.getElementById('notation');
+        Elm.embed(Elm.Main, div);
+    }, function() {
+        var err = 'Bravura Font is not available';
+        console.error(err);
+        document.write(err)
+    });
+</script>
+
+</html>
