@@ -96,7 +96,7 @@ noteHead value =
     glyph (stringOfNoteValue value)
 
 
-{-| Draw a celf, centered at (0, 0)
+{-| Draw a celf, which takes the x-axis as the placement line on a stave
 
     celf gCelf
 -}
