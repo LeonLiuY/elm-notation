@@ -1,6 +1,6 @@
 ## elm-notation
 
-Music notation rendering by elm, with [SMuFL](http://www.smufl.org/).
+Music notation rendered by elm, with [SMuFL](http://www.smufl.org/).
 
 Demo:
 
