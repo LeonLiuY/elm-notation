@@ -5521,12 +5521,18 @@ Elm.Notation.Variables.make = function (_elm) {
    var fontSize = 4 * keyMeasure;
    var staffLineThickness = 0.13 * keyMeasure;
    var stemThickness = 0.12 * keyMeasure;
+   var thickBarlineThickness = 0.5 * keyMeasure;
+   var thinBarlineThickness = 0.16 * keyMeasure;
+   var beamThickness = 0.5 * keyMeasure;
    return _elm.Notation.Variables.values = {_op: _op
                                            ,keyMeasure: keyMeasure
                                            ,staffSpace: staffSpace
                                            ,fontSize: fontSize
                                            ,staffLineThickness: staffLineThickness
-                                           ,stemThickness: stemThickness};
+                                           ,stemThickness: stemThickness
+                                           ,thickBarlineThickness: thickBarlineThickness
+                                           ,thinBarlineThickness: thinBarlineThickness
+                                           ,beamThickness: beamThickness};
 };
 Elm.Notation = Elm.Notation || {};
 Elm.Notation.Draw = Elm.Notation.Draw || {};
@@ -5537,6 +5543,7 @@ Elm.Notation.Draw.make = function (_elm) {
    if (_elm.Notation.Draw.values) return _elm.Notation.Draw.values;
    var _U = Elm.Native.Utils.make(_elm),
    $Basics = Elm.Basics.make(_elm),
+   $Color = Elm.Color.make(_elm),
    $Debug = Elm.Debug.make(_elm),
    $Graphics$Collage = Elm.Graphics.Collage.make(_elm),
    $Graphics$Element = Elm.Graphics.Element.make(_elm),
@@ -5553,6 +5560,38 @@ Elm.Notation.Draw.make = function (_elm) {
       return $Graphics$Collage.toForm($Graphics$Element.leftAligned(A2($Text.typeface,
       _U.list(["Bravura"]),
       A2($Text.height,$Notation$Variables.fontSize,$Text.fromString(str)))));
+   };
+   var beamOffset = function (_p2) {
+      var _p3 = _p2;
+      var _p4 = _p3._0;
+      return $Basics.sqrt(Math.pow(_p4,2) + Math.pow(_p3._1,2)) / _p4 * $Notation$Variables.beamThickness;
+   };
+   var beam = function (_p5) {
+      var _p6 = _p5;
+      var _p8 = _p6._1;
+      var _p7 = _p6._0;
+      return A2($Graphics$Collage.filled,
+      $Color.black,
+      $Graphics$Collage.polygon(_U.list([{ctor: "_Tuple2",_0: 0,_1: 0}
+                                        ,{ctor: "_Tuple2",_0: _p7 * $Notation$Variables.keyMeasure,_1: _p8 * $Notation$Variables.keyMeasure}
+                                        ,{ctor: "_Tuple2"
+                                         ,_0: _p7 * $Notation$Variables.keyMeasure
+                                         ,_1: _p8 * $Notation$Variables.keyMeasure + beamOffset({ctor: "_Tuple2",_0: _p7,_1: _p8})}
+                                        ,{ctor: "_Tuple2",_0: 0,_1: beamOffset({ctor: "_Tuple2",_0: _p7,_1: _p8})}])));
+   };
+   var barlineThin = function (length) {
+      return A2($Graphics$Collage.traced,
+      _U.update($Graphics$Collage.defaultLine,{width: $Notation$Variables.thinBarlineThickness}),
+      A2($Graphics$Collage.segment,
+      {ctor: "_Tuple2",_0: 0,_1: 0 - length / 2 * $Notation$Variables.keyMeasure},
+      {ctor: "_Tuple2",_0: 0,_1: 0 + length / 2 * $Notation$Variables.keyMeasure}));
+   };
+   var barlineThick = function (length) {
+      return A2($Graphics$Collage.traced,
+      _U.update($Graphics$Collage.defaultLine,{width: $Notation$Variables.thickBarlineThickness}),
+      A2($Graphics$Collage.segment,
+      {ctor: "_Tuple2",_0: 0,_1: 0 - length / 2 * $Notation$Variables.keyMeasure},
+      {ctor: "_Tuple2",_0: 0,_1: 0 + length / 2 * $Notation$Variables.keyMeasure}));
    };
    var clef = function (c) {    return glyph(stringOfClef(c));};
    var noteHead = function (value) {    return glyph(stringOfNoteValue(value));};
@@ -5595,7 +5634,10 @@ Elm.Notation.Draw.make = function (_elm) {
                                       ,fClef: fClef
                                       ,whole: whole
                                       ,half: half
-                                      ,black: black};
+                                      ,black: black
+                                      ,barlineThick: barlineThick
+                                      ,barlineThin: barlineThin
+                                      ,beam: beam};
 };
 Elm.Main = Elm.Main || {};
 Elm.Main.make = function (_elm) {
@@ -5629,11 +5671,7 @@ Elm.Main.make = function (_elm) {
    });
    var keyM = function (i) {    return $Basics.round($Notation$Variables.keyMeasure) * i;};
    var axis = F2(function (name,form) {
-      return A4($Graphics$Element.container,
-      keyM(15),
-      keyM(15),
-      $Graphics$Element.middle,
-      A3($Graphics$Collage.collage,
+      return A3($Graphics$Collage.collage,
       keyM(15),
       keyM(15),
       $List.concat(_U.list([_U.list([A2($Graphics$Collage.traced,
@@ -5673,20 +5711,24 @@ Elm.Main.make = function (_elm) {
                            ,_U.list([form
                                     ,A2($Graphics$Collage.moveY,
                                     $Notation$Variables.keyMeasure * -6,
-                                    $Graphics$Collage.toForm($Graphics$Element.leftAligned($Text.fromString(name))))])]))));
+                                    $Graphics$Collage.toForm($Graphics$Element.leftAligned($Text.fromString(name))))])])));
    });
    var main = A2($Signal.map,
    function (width) {
       return A2(renderFlowGrid,
       width / keyM(15) | 0,
       _U.list([A2(axis,"staffLine 4",$Notation$Draw.staffLine(4))
-              ,A2(axis,"fiveLineStaff 4",$Notation$Draw.staff5Line(4))
+              ,A2(axis,"staff5Line 4",$Notation$Draw.staff5Line(4))
               ,A2(axis,"stem 4",$Notation$Draw.stem(4))
               ,A2(axis,"noteHead whole",$Notation$Draw.noteHead($Notation$Draw.whole))
               ,A2(axis,"noteHead half",$Notation$Draw.noteHead($Notation$Draw.half))
               ,A2(axis,"noteHead black",$Notation$Draw.noteHead($Notation$Draw.black))
               ,A2(axis,"clef gClef",$Notation$Draw.clef($Notation$Draw.gClef))
-              ,A2(axis,"clef fClef",$Notation$Draw.clef($Notation$Draw.fClef))]));
+              ,A2(axis,"clef fClef",$Notation$Draw.clef($Notation$Draw.fClef))
+              ,A2(axis,"barlineThick 4",$Notation$Draw.barlineThick(4))
+              ,A2(axis,"barlineThin 4",$Notation$Draw.barlineThin(4))
+              ,A2(axis,"beam (4, 2)",$Notation$Draw.beam({ctor: "_Tuple2",_0: 4,_1: 2}))
+              ,A2(axis,"beam (4, -4)",$Notation$Draw.beam({ctor: "_Tuple2",_0: 4,_1: -4}))]));
    },
    $Window.width);
    return _elm.Main.values = {_op: _op,keyM: keyM,axis: axis,partition: partition,renderFlowGrid: renderFlowGrid,main: main};
