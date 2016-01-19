@@ -1,4 +1,4 @@
-module Notation.Draw (staffLine, staff5Line, noteHead, stem, clef, Clef, gClef, fClef, NoteHead, whole, half, black) where
+module Notation.Draw (staffLine, staff5Line, noteHead, stem, clef, Clef, gClef, fClef, NoteHead, whole, half, black, barlineThick, barlineThin, beam) where
 
 {-| Draw kinds of music notations.
 
@@ -8,13 +8,14 @@ Each component specifies the detailed formation of the component.
 All length parameters are the measurements expressed in staff spaces.
 
 # Components
-@docs staffLine, staff5Line, stem, Clef, gClef, fClef,clef,  NoteHead, whole, half, black ,noteHead
+@docs staffLine, staff5Line, stem, Clef, gClef, fClef,clef,  NoteHead, whole, half, black ,noteHead, barlineThick, barlineThin, beam
 -}
 
 import Graphics.Collage exposing (..)
 import Graphics.Element exposing (..)
 import Notation.Variables as Var exposing (keyMeasure)
 import Text
+import Color
 
 
 {-| -}
@@ -105,8 +106,47 @@ clef c =
     glyph (stringOfClef c)
 
 
+{-| Draw a thick barline from (0, - length / 2) to (0, length / 2) on the y-axis.
+
+    barlineThick 4
+-}
+barlineThick : Float -> Form
+barlineThick length =
+    segment ( 0, 0 - length / 2 * keyMeasure ) ( 0, 0 + length / 2 * keyMeasure ) |> traced { defaultLine | width = Var.thickBarlineThickness }
+
+
+{-| Draw a thin barline from (0, - length / 2) to (0, length / 2) on the y-axis.
+
+    barlineThin 4
+-}
+barlineThin : Float -> Form
+barlineThin length =
+    segment ( 0, 0 - length / 2 * keyMeasure ) ( 0, 0 + length / 2 * keyMeasure ) |> traced { defaultLine | width = Var.thinBarlineThickness }
+
+
+{-| Draw a beam, with the left-bottom corner (0, 0), and right-bottom corner (x, y).
+    top-left and top-right corners will be adjusted to satisfy beamThickness
+
+    beam (4, 2)
+-}
+beam : ( Float, Float ) -> Form
+beam ( x, y ) =
+    polygon
+        [ ( 0, 0 )
+        , ( x * keyMeasure, y * keyMeasure )
+        , ( x * keyMeasure, y * keyMeasure + beamOffset ( x, y ) )
+        , ( 0, beamOffset ( x, y ) )
+        ]
+        |> filled Color.black
+
+
 
 {- PRIVATES -}
+
+
+beamOffset : ( Float, Float ) -> Float
+beamOffset ( x, y ) =
+    sqrt (x ^ 2 + y ^ 2) / x * Var.beamThickness
 
 
 {-| Draw glyph

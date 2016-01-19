@@ -63,6 +63,10 @@ main =
                 , axis "noteHead black" <| noteHead black
                 , axis "clef gClef" <| clef gClef
                 , axis "clef fClef" <| clef fClef
+                , axis "barlineThick 4" <| barlineThick 4
+                , axis "barlineThin 4" <| barlineThin 4
+                , axis "beam (4, 2)" <| beam ( 4, 2 )
+                , axis "beam (4, -4)" <| beam ( 4, -4 )
                 ]
         )
         Window.width

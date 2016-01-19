@@ -24,3 +24,18 @@ staffLineThickness =
 stemThickness : Float
 stemThickness =
     0.12 * keyMeasure
+
+
+thickBarlineThickness : Float
+thickBarlineThickness =
+    0.5 * keyMeasure
+
+
+thinBarlineThickness : Float
+thinBarlineThickness =
+    0.16 * keyMeasure
+
+
+beamThickness : Float
+beamThickness =
+    0.5 * keyMeasure
