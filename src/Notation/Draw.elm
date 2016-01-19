@@ -78,7 +78,7 @@ stem length =
     segment ( 0, 0 ) ( 0, 0 + length * keyMeasure ) |> traced { defaultLine | width = Var.stemThickness }
 
 
-{-| Draw a standard five-line staff, where the middle line lies on the x-axis from (-length/2, 0) to (length/2 , 0).
+{-| Draw a standard five-line stave, where the middle line lies on the x-axis from (-length/2, 0) to (length/2 , 0).
 
     staff5Line 200
 -}

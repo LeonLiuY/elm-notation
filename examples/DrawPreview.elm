@@ -56,7 +56,7 @@ main =
             renderFlowGrid
                 (width // (keyM 15))
                 [ axis "staffLine 4" <| staffLine 4
-                , axis "fiveLineStaff 4" <| staff5Line 4
+                , axis "staff5Line 4" <| staff5Line 4
                 , axis "stem 4" <| stem 4
                 , axis "noteHead whole" <| noteHead whole
                 , axis "noteHead half" <| noteHead half
