@@ -53,20 +53,24 @@ main : Signal Element
 main =
     Signal.map
         (\width ->
-            renderFlowGrid
-                (width // (keyM 15))
-                [ axis "staffLine 4" <| staffLine 4
-                , axis "staff5Line 4" <| staff5Line 4
-                , axis "stem 4" <| stem 4
-                , axis "noteHead whole" <| noteHead whole
-                , axis "noteHead half" <| noteHead half
-                , axis "noteHead black" <| noteHead black
-                , axis "clef gClef" <| clef gClef
-                , axis "clef fClef" <| clef fClef
-                , axis "barlineThick 4" <| barlineThick 4
-                , axis "barlineThin 4" <| barlineThin 4
-                , axis "beam (4, 2)" <| beam ( 4, 2 )
-                , axis "beam (4, -4)" <| beam ( 4, -4 )
+            flow
+                down
+                [ (Text.fromString "1 cell = 1 keyMeasure(staffSpace) x 1 keyMeasure" |> centered)
+                , renderFlowGrid
+                    (width // (keyM 15))
+                    [ axis "staffLine 4" <| staffLine 4
+                    , axis "fiveLineStaff 4" <| staff5Line 4
+                    , axis "stem 4" <| stem 4
+                    , axis "noteHead whole" <| noteHead whole
+                    , axis "noteHead half" <| noteHead half
+                    , axis "noteHead black" <| noteHead black
+                    , axis "clef gClef" <| clef gClef
+                    , axis "clef fClef" <| clef fClef
+                    , axis "barlineThick 4" <| barlineThick 4
+                    , axis "barlineThin 4" <| barlineThin 4
+                    , axis "beam (4, 2)" <| beam ( 4, 2 )
+                    , axis "beam (4, -4)" <| beam ( 4, -4 )
+                    ]
                 ]
         )
         Window.width
