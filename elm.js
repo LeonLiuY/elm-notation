@@ -5566,6 +5566,11 @@ Elm.Notation.Draw.make = function (_elm) {
       var _p4 = _p3._0;
       return $Basics.sqrt(Math.pow(_p4,2) + Math.pow(_p3._1,2)) / _p4 * $Notation$Variables.beamThickness;
    };
+   var doubleFlat = glyph("");
+   var doubleSharp = glyph("");
+   var natural = glyph("");
+   var sharp = glyph("");
+   var flat = glyph("");
    var augmentationDot = glyph("");
    var beamUpper = function (_p5) {
       var _p6 = _p5;
@@ -5653,7 +5658,12 @@ Elm.Notation.Draw.make = function (_elm) {
                                       ,barlineThin: barlineThin
                                       ,beamLower: beamLower
                                       ,beamUpper: beamUpper
-                                      ,augmentationDot: augmentationDot};
+                                      ,augmentationDot: augmentationDot
+                                      ,flat: flat
+                                      ,sharp: sharp
+                                      ,natural: natural
+                                      ,doubleSharp: doubleSharp
+                                      ,doubleFlat: doubleFlat};
 };
 Elm.Main = Elm.Main || {};
 Elm.Main.make = function (_elm) {
@@ -5748,7 +5758,12 @@ Elm.Main.make = function (_elm) {
                       ,A2(axis,"barlineThin 4",$Notation$Draw.barlineThin(4))
                       ,A2(axis,"beamUpper (4, 2)",$Notation$Draw.beamUpper({ctor: "_Tuple2",_0: 4,_1: 2}))
                       ,A2(axis,"beamLower (4, -4)",$Notation$Draw.beamLower({ctor: "_Tuple2",_0: 4,_1: -4}))
-                      ,A2(axis,"augmentationDot",$Notation$Draw.augmentationDot)]))]));
+                      ,A2(axis,"augmentationDot",$Notation$Draw.augmentationDot)
+                      ,A2(axis,"flat",$Notation$Draw.flat)
+                      ,A2(axis,"sharp",$Notation$Draw.sharp)
+                      ,A2(axis,"natural",$Notation$Draw.natural)
+                      ,A2(axis,"doubleSharp",$Notation$Draw.doubleSharp)
+                      ,A2(axis,"doubleFlat",$Notation$Draw.doubleFlat)]))]));
    },
    $Window.width);
    return _elm.Main.values = {_op: _op,keyM: keyM,axis: axis,partition: partition,renderFlowGrid: renderFlowGrid,main: main};
