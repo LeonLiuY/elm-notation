@@ -70,7 +70,7 @@ main =
                     , axis "barlineThin 4" <| barlineThin 4
                     , axis "beamUpper (4, 2)" <| beamUpper ( 4, 2 )
                     , axis "beamLower (4, -4)" <| beamLower ( 4, -4 )
-                    , axis "argmentationDot" <| argmentationDot
+                    , axis "augmentationDot" <| augmentationDot
                     ]
                 ]
         )

@@ -1,4 +1,4 @@
-module Notation.Draw (staffLine, staff5Line, noteHead, stem, clef, Clef, gClef, fClef, NoteHead, whole, half, black, barlineThick, barlineThin, beamLower, beamUpper, argmentationDot) where
+module Notation.Draw (staffLine, staff5Line, noteHead, stem, clef, Clef, gClef, fClef, NoteHead, whole, half, black, barlineThick, barlineThin, beamLower, beamUpper, augmentationDot) where
 
 {-| Draw kinds of music notations.
 
@@ -8,7 +8,7 @@ Each component specifies the detailed formation of the component.
 All length parameters are the measurements expressed in staff spaces.
 
 # Components
-@docs staffLine, staff5Line, stem, Clef, gClef, fClef,clef,  NoteHead, whole, half, black ,noteHead, barlineThick, barlineThin, beamUpper, beamLower, argmentationDot
+@docs staffLine, staff5Line, stem, Clef, gClef, fClef,clef,  NoteHead, whole, half, black ,noteHead, barlineThick, barlineThin, beamUpper, beamLower, augmentationDot
 -}
 
 import Graphics.Collage exposing (..)
@@ -158,11 +158,11 @@ beamUpper ( x, y ) =
         |> filled Color.black
 
 
-{-| Draw a argmentation dot centered at (0, 0).
+{-| Draw a augmentation dot centered at (0, 0).
 
 -}
-argmentationDot : Form
-argmentationDot =
+augmentationDot : Form
+augmentationDot =
     glyph "\xE1E7"
 
 
