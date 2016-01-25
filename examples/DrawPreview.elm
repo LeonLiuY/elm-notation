@@ -68,8 +68,8 @@ main =
                     , axis "clef fClef" <| clef fClef
                     , axis "barlineThick 4" <| barlineThick 4
                     , axis "barlineThin 4" <| barlineThin 4
-                    , axis "beam (4, 2)" <| beam ( 4, 2 )
-                    , axis "beam (4, -4)" <| beam ( 4, -4 )
+                    , axis "beamUpper (4, 2)" <| beamUpper ( 4, 2 )
+                    , axis "beamLower (4, -4)" <| beamLower ( 4, -4 )
                     ]
                 ]
         )

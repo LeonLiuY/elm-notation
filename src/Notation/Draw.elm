@@ -1,4 +1,4 @@
-module Notation.Draw (staffLine, staff5Line, noteHead, stem, clef, Clef, gClef, fClef, NoteHead, whole, half, black, barlineThick, barlineThin, beam) where
+module Notation.Draw (staffLine, staff5Line, noteHead, stem, clef, Clef, gClef, fClef, NoteHead, whole, half, black, barlineThick, barlineThin, beamLower, beamUpper) where
 
 {-| Draw kinds of music notations.
 
@@ -8,7 +8,7 @@ Each component specifies the detailed formation of the component.
 All length parameters are the measurements expressed in staff spaces.
 
 # Components
-@docs staffLine, staff5Line, stem, Clef, gClef, fClef,clef,  NoteHead, whole, half, black ,noteHead, barlineThick, barlineThin, beam
+@docs staffLine, staff5Line, stem, Clef, gClef, fClef,clef,  NoteHead, whole, half, black ,noteHead, barlineThick, barlineThin, beamLower, beamUpper
 -}
 
 import Graphics.Collage exposing (..)
@@ -125,17 +125,35 @@ barlineThin length =
 
 
 {-| Draw a beam, with the left-bottom corner (0, 0), and right-bottom corner (x, y).
-    top-left and top-right corners will be adjusted to satisfy beamThickness
+    top-left and top-right corners will be adjusted to satisfy beamThickness.
+    This beam is intended to be a lower beam.
 
     beam (4, 2)
 -}
-beam : ( Float, Float ) -> Form
-beam ( x, y ) =
+beamLower : ( Float, Float ) -> Form
+beamLower ( x, y ) =
     polygon
         [ ( 0, 0 )
         , ( x * keyMeasure, y * keyMeasure )
         , ( x * keyMeasure, y * keyMeasure + beamOffset ( x, y ) )
         , ( 0, beamOffset ( x, y ) )
+        ]
+        |> filled Color.black
+
+
+{-| Draw a beam, with the left-top corner (0, 0), and right-top corner (x, y).
+    top-left and top-right corners will be adjusted to satisfy beamThickness.
+    This beam is intended to be a upper beam.
+
+    beam (4, 2)
+-}
+beamUpper : ( Float, Float ) -> Form
+beamUpper ( x, y ) =
+    polygon
+        [ ( 0, 0 )
+        , ( x * keyMeasure, y * keyMeasure )
+        , ( x * keyMeasure, y * keyMeasure - beamOffset ( x, y ) )
+        , ( 0, 0 - beamOffset ( x, y ) )
         ]
         |> filled Color.black
 
