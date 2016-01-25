@@ -5566,7 +5566,8 @@ Elm.Notation.Draw.make = function (_elm) {
       var _p4 = _p3._0;
       return $Basics.sqrt(Math.pow(_p4,2) + Math.pow(_p3._1,2)) / _p4 * $Notation$Variables.beamThickness;
    };
-   var beam = function (_p5) {
+   var augmentationDot = glyph("");
+   var beamUpper = function (_p5) {
       var _p6 = _p5;
       var _p8 = _p6._1;
       var _p7 = _p6._0;
@@ -5576,8 +5577,21 @@ Elm.Notation.Draw.make = function (_elm) {
                                         ,{ctor: "_Tuple2",_0: _p7 * $Notation$Variables.keyMeasure,_1: _p8 * $Notation$Variables.keyMeasure}
                                         ,{ctor: "_Tuple2"
                                          ,_0: _p7 * $Notation$Variables.keyMeasure
-                                         ,_1: _p8 * $Notation$Variables.keyMeasure + beamOffset({ctor: "_Tuple2",_0: _p7,_1: _p8})}
-                                        ,{ctor: "_Tuple2",_0: 0,_1: beamOffset({ctor: "_Tuple2",_0: _p7,_1: _p8})}])));
+                                         ,_1: _p8 * $Notation$Variables.keyMeasure - beamOffset({ctor: "_Tuple2",_0: _p7,_1: _p8})}
+                                        ,{ctor: "_Tuple2",_0: 0,_1: 0 - beamOffset({ctor: "_Tuple2",_0: _p7,_1: _p8})}])));
+   };
+   var beamLower = function (_p9) {
+      var _p10 = _p9;
+      var _p12 = _p10._1;
+      var _p11 = _p10._0;
+      return A2($Graphics$Collage.filled,
+      $Color.black,
+      $Graphics$Collage.polygon(_U.list([{ctor: "_Tuple2",_0: 0,_1: 0}
+                                        ,{ctor: "_Tuple2",_0: _p11 * $Notation$Variables.keyMeasure,_1: _p12 * $Notation$Variables.keyMeasure}
+                                        ,{ctor: "_Tuple2"
+                                         ,_0: _p11 * $Notation$Variables.keyMeasure
+                                         ,_1: _p12 * $Notation$Variables.keyMeasure + beamOffset({ctor: "_Tuple2",_0: _p11,_1: _p12})}
+                                        ,{ctor: "_Tuple2",_0: 0,_1: beamOffset({ctor: "_Tuple2",_0: _p11,_1: _p12})}])));
    };
    var barlineThin = function (length) {
       return A2($Graphics$Collage.traced,
@@ -5637,7 +5651,9 @@ Elm.Notation.Draw.make = function (_elm) {
                                       ,black: black
                                       ,barlineThick: barlineThick
                                       ,barlineThin: barlineThin
-                                      ,beam: beam};
+                                      ,beamLower: beamLower
+                                      ,beamUpper: beamUpper
+                                      ,augmentationDot: augmentationDot};
 };
 Elm.Main = Elm.Main || {};
 Elm.Main.make = function (_elm) {
@@ -5715,20 +5731,24 @@ Elm.Main.make = function (_elm) {
    });
    var main = A2($Signal.map,
    function (width) {
-      return A2(renderFlowGrid,
-      width / keyM(15) | 0,
-      _U.list([A2(axis,"staffLine 4",$Notation$Draw.staffLine(4))
-              ,A2(axis,"staff5Line 4",$Notation$Draw.staff5Line(4))
-              ,A2(axis,"stem 4",$Notation$Draw.stem(4))
-              ,A2(axis,"noteHead whole",$Notation$Draw.noteHead($Notation$Draw.whole))
-              ,A2(axis,"noteHead half",$Notation$Draw.noteHead($Notation$Draw.half))
-              ,A2(axis,"noteHead black",$Notation$Draw.noteHead($Notation$Draw.black))
-              ,A2(axis,"clef gClef",$Notation$Draw.clef($Notation$Draw.gClef))
-              ,A2(axis,"clef fClef",$Notation$Draw.clef($Notation$Draw.fClef))
-              ,A2(axis,"barlineThick 4",$Notation$Draw.barlineThick(4))
-              ,A2(axis,"barlineThin 4",$Notation$Draw.barlineThin(4))
-              ,A2(axis,"beam (4, 2)",$Notation$Draw.beam({ctor: "_Tuple2",_0: 4,_1: 2}))
-              ,A2(axis,"beam (4, -4)",$Notation$Draw.beam({ctor: "_Tuple2",_0: 4,_1: -4}))]));
+      return A2($Graphics$Element.flow,
+      $Graphics$Element.down,
+      _U.list([$Graphics$Element.centered($Text.fromString("1 cell = 1 keyMeasure(staffSpace) x 1 keyMeasure"))
+              ,A2(renderFlowGrid,
+              width / keyM(15) | 0,
+              _U.list([A2(axis,"staffLine 4",$Notation$Draw.staffLine(4))
+                      ,A2(axis,"fiveLineStaff 4",$Notation$Draw.staff5Line(4))
+                      ,A2(axis,"stem 4",$Notation$Draw.stem(4))
+                      ,A2(axis,"noteHead whole",$Notation$Draw.noteHead($Notation$Draw.whole))
+                      ,A2(axis,"noteHead half",$Notation$Draw.noteHead($Notation$Draw.half))
+                      ,A2(axis,"noteHead black",$Notation$Draw.noteHead($Notation$Draw.black))
+                      ,A2(axis,"clef gClef",$Notation$Draw.clef($Notation$Draw.gClef))
+                      ,A2(axis,"clef fClef",$Notation$Draw.clef($Notation$Draw.fClef))
+                      ,A2(axis,"barlineThick 4",$Notation$Draw.barlineThick(4))
+                      ,A2(axis,"barlineThin 4",$Notation$Draw.barlineThin(4))
+                      ,A2(axis,"beamUpper (4, 2)",$Notation$Draw.beamUpper({ctor: "_Tuple2",_0: 4,_1: 2}))
+                      ,A2(axis,"beamLower (4, -4)",$Notation$Draw.beamLower({ctor: "_Tuple2",_0: 4,_1: -4}))
+                      ,A2(axis,"augmentationDot",$Notation$Draw.augmentationDot)]))]));
    },
    $Window.width);
    return _elm.Main.values = {_op: _op,keyM: keyM,axis: axis,partition: partition,renderFlowGrid: renderFlowGrid,main: main};
