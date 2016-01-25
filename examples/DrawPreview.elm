@@ -71,6 +71,11 @@ main =
                     , axis "beamUpper (4, 2)" <| beamUpper ( 4, 2 )
                     , axis "beamLower (4, -4)" <| beamLower ( 4, -4 )
                     , axis "augmentationDot" <| augmentationDot
+                    , axis "flat" <| flat
+                    , axis "sharp" <| sharp
+                    , axis "natural" <| natural
+                    , axis "doubleSharp" <| doubleSharp
+                    , axis "doubleFlat" <| doubleFlat
                     ]
                 ]
         )

@@ -1,4 +1,4 @@
-module Notation.Draw (staffLine, staff5Line, noteHead, stem, clef, Clef, gClef, fClef, NoteHead, whole, half, black, barlineThick, barlineThin, beamLower, beamUpper, augmentationDot) where
+module Notation.Draw (staffLine, staff5Line, noteHead, stem, clef, Clef, gClef, fClef, NoteHead, whole, half, black, barlineThick, barlineThin, beamLower, beamUpper, augmentationDot, flat, sharp, natural, doubleSharp, doubleFlat) where
 
 {-| Draw kinds of music notations.
 
@@ -8,7 +8,7 @@ Each component specifies the detailed formation of the component.
 All length parameters are the measurements expressed in staff spaces.
 
 # Components
-@docs staffLine, staff5Line, stem, Clef, gClef, fClef,clef,  NoteHead, whole, half, black ,noteHead, barlineThick, barlineThin, beamUpper, beamLower, augmentationDot
+@docs staffLine, staff5Line, stem, Clef, gClef, fClef,clef,  NoteHead, whole, half, black ,noteHead, barlineThick, barlineThin, beamUpper, beamLower, augmentationDot, flat, sharp, natural, doubleSharp, doubleFlat
 -}
 
 import Graphics.Collage exposing (..)
@@ -125,7 +125,7 @@ barlineThin length =
 
 
 {-| Draw a beam, with the left-bottom corner (0, 0), and right-bottom corner (x, y).
-    top-left and top-right corners will be adjusted to satisfy beamThickness.
+    left-top and right-top corners will be adjusted to satisfy beamThickness.
     This beam is intended to be a lower beam.
 
     beam (4, 2)
@@ -142,7 +142,7 @@ beamLower ( x, y ) =
 
 
 {-| Draw a beam, with the left-top corner (0, 0), and right-top corner (x, y).
-    top-left and top-right corners will be adjusted to satisfy beamThickness.
+    left-bottom and right-bottom corners will be adjusted to satisfy beamThickness.
     This beam is intended to be a upper beam.
 
     beam (4, 2)
@@ -164,6 +164,46 @@ beamUpper ( x, y ) =
 augmentationDot : Form
 augmentationDot =
     glyph "\xE1E7"
+
+
+{-| Draw a flat accidental around (0, 0), as it is matching a noteHead on the x-axis.
+
+-}
+flat : Form
+flat =
+    glyph "\xE260"
+
+
+{-| Draw a sharp accidental around (0, 0), as it is matching a noteHead on the x-axis.
+
+-}
+sharp : Form
+sharp =
+    glyph "\xE262"
+
+
+{-| Draw a natural accidental around (0, 0), as it is matching a noteHead on the x-axis.
+
+-}
+natural : Form
+natural =
+    glyph "\xE261"
+
+
+{-| Draw a double sharp accidental around (0, 0), as it is matching a noteHead on the x-axis.
+
+-}
+doubleSharp : Form
+doubleSharp =
+    glyph "\xE263"
+
+
+{-| Draw a double flat accidental around (0, 0), as it is matching a noteHead on the x-axis.
+
+-}
+doubleFlat : Form
+doubleFlat =
+    glyph "\xE264"
 
 
 
