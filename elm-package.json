@@ -7,7 +7,7 @@
         "src"
     ],
     "exposed-modules": [
-        "Notation.Basic.Staff"
+        "Notation.Basic"
     ],
     "dependencies": {
         "elm-lang/core": "5.0.0 <= v < 6.0.0",

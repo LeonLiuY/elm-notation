@@ -1,6 +1,6 @@
 module DrawPreview exposing (..)
 
-import Notation.Basic.Staff exposing (..)
+import Notation.Basic exposing (..)
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
 import Html exposing (..)
@@ -10,7 +10,26 @@ import Notation.Variables as Var
 
 main : Html msg
 main =
-    coordinate <| staff5Line 4 []
+    div [ Html.Attributes.style [ ( "display", "flex" ), ( "flex-wrap", "wrap" ) ] ]
+        [ coordinate <| staffLine 4 []
+        , coordinate <| staff5Line 4 []
+        , coordinate <| barlineThick 4 []
+        , coordinate <| barlineThin 4 []
+        , coordinate <| clef gClef []
+        , coordinate <| clef fClef []
+        , coordinate <| beamLower ( 4, 2 ) []
+        , coordinate <| beamUpper ( 4, -4 ) []
+        , coordinate <| noteHead whole []
+        , coordinate <| noteHead half []
+        , coordinate <| noteHead black []
+        , coordinate <| stem 4 []
+        , coordinate <| augmentationDot []
+        , coordinate <| flat []
+        , coordinate <| sharp []
+        , coordinate <| natural []
+        , coordinate <| doubleFlat []
+        , coordinate <| doubleSharp []
+        ]
 
 
 coordinate : Svg msg -> Html msg
