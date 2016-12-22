@@ -3,12 +3,12 @@
 
 <head>
     <title>Notation</title>
-    <script src="elm.js" charset="utf-8"></script>
-    <script src="lib/fontfaceobserver.js" charset="utf-8"></script>
+    <script src="/elm.js" charset="utf-8"></script>
+    <script src="/lib/fontfaceobserver.js" charset="utf-8"></script>
     <style media="screen">
         @font-face {
             font-family: Bravura;
-            src: url(fonts/Bravura.woff);
+            src: url(/fonts/Bravura.woff);
         }
 
         .noselect {
@@ -31,12 +31,12 @@
     var observer = new FontFaceObserver('Bravura');
     observer.check("\ue000\ue001\ue002\ue003\ue004\ue005").then(function() {
         var div = document.getElementById('notation');
-        Elm.embed(Elm.Main, div);
+        Elm.DrawPreview.embed(div);
     }, function() {
         var err = 'Bravura Font is not available';
         console.error(err);
         document.write(err)
     });
 </script>
-
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </html>
