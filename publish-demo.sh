@@ -18,5 +18,6 @@ cp examples/draw.html $dir/index.html
 sed -i 's/\/elm.js/elm.js/g' $dir/index.html
 sed -i 's/\/lib/lib/g' $dir/index.html
 sed -i 's/\/fonts/fonts/g' $dir/index.html
+sed -i '/livereload/c\' $dir/index.html
 
 (cd $dir && git add . && git commit -m 'update demo' && git push origin gh-pages)
