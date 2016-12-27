@@ -28,47 +28,62 @@ note n attr =
                     noteHead whole attr
 
                 1 ->
-                    noteHead half attr
+                    g ([] ++ attr)
+                        [ noteHead half []
+                        , stemUpSE
+                        ]
 
                 2 ->
                     g ([] ++ attr)
                         [ noteHead black []
-                        , stem stemLengthStandard
-                            [ let
-                                x =
-                                    (Tuple.first noteHeadBlack.stemUpSE) - stemThickness / 2
+                        , stemUpSE
+                        ]
 
-                                y =
-                                    -(Tuple.second noteHeadBlack.stemUpSE + stemLengthStandard)
-                              in
-                                translate ( x, y )
-                            ]
+                3 ->
+                    g ([] ++ attr)
+                        [ noteHead black []
+                        , stemUpSE
+                        , flagForStemUp flag8thUp
                         ]
 
                 _ ->
                     g ([] ++ attr)
                         [ noteHead black []
-                        , stem stemLengthStandard
-                            [ let
-                                x =
-                                    (Tuple.first noteHeadBlack.stemUpSE) - stemThickness / 2
-
-                                y =
-                                    -(Tuple.second noteHeadBlack.stemUpSE + stemLengthStandard)
-                              in
-                                translate ( x, y )
-                            ]
-                        , flag8thUp
-                            [ let
-                                x =
-                                    (Tuple.first noteHeadBlack.stemUpSE) - stemThickness
-
-                                y =
-                                    -(Tuple.second noteHeadBlack.stemUpSE + stemLengthStandard)
-                              in
-                                translate ( x, y )
-                            ]
+                        , stemUpSE
+                        , flagForStemUp flag16thUp
                         ]
         )
         n
         attr
+
+
+
+{- Private -}
+
+
+stemUpSE : Svg msg
+stemUpSE =
+    stem (stemLengthStandard - (Tuple.second noteHeadBlack.stemUpSE))
+        [ let
+            x =
+                (Tuple.first noteHeadBlack.stemUpSE) - stemThickness / 2
+
+            y =
+                -stemLengthStandard
+          in
+            translate ( x, y )
+        ]
+
+
+flagForStemUp : (List (Attribute msg) -> Svg msg) -> Svg msg
+flagForStemUp flag =
+    flag
+        [ let
+            x =
+                (Tuple.first noteHeadBlack.stemUpSE) - stemThickness
+
+            y =
+                -stemLengthStandard
+          in
+            translate ( x, y )
+        ]
