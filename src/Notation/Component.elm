@@ -1,10 +1,15 @@
 module Notation.Component exposing (note)
 
+{-|
+# Components
+@docs note
+-}
+
 import Notation.Basic exposing (..)
 import Svg.Lazy exposing (..)
 import Svg exposing (..)
-import Svg.Attributes exposing (..)
 import Notation.Variables exposing (..)
+import Notation.Helper exposing (..)
 
 
 type alias Note =
@@ -12,10 +17,8 @@ type alias Note =
     }
 
 
-translate ( x, y ) =
-    transform ("translate(" ++ (toString x) ++ "," ++ (toString y) ++ ")")
-
-
+{-| Draw a note
+-}
 note : Note -> List (Attribute msg) -> Svg msg
 note n attr =
     lazy2

@@ -2,6 +2,7 @@ module DrawPreview exposing (..)
 
 import Notation.Basic exposing (..)
 import Notation.Component exposing (..)
+import Notation.Helper exposing (..)
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
 import Html exposing (..)
@@ -52,9 +53,6 @@ coordinate label content =
 
         lineLengthDouble =
             (toString 20)
-
-        trans =
-            "translate(" ++ lineLength ++ "," ++ lineLength ++ ")"
     in
         div [ Html.Attributes.style [ ( "padding", "20px" ), ( "height", "200px" ), ( "width", "200px" ) ] ]
             [ svg [ viewBox ("0 0 " ++ boxSize ++ " " ++ boxSize) ]
@@ -62,7 +60,7 @@ coordinate label content =
                 , line [ stroke "grey", strokeWidth "0.05", x1 lineLength, y1 lineLength, x2 lineLength, y2 lineLengthDouble ] []
                 , line [ stroke "grey", strokeWidth "0.05", strokeDasharray "1, 1", x1 "0", y1 lineLength, x2 lineLength, y2 lineLength ] []
                 , line [ stroke "grey", strokeWidth "0.05", x1 lineLength, y1 lineLength, x2 lineLengthDouble, y2 lineLength ] []
-                , g [ transform trans ] [ content ]
+                , g [ translate ( 10, 10 ) ] [ content ]
                 ]
             , div [ Html.Attributes.style [ ( "text-align", "center" ) ] ] [ Html.text label ]
             ]
