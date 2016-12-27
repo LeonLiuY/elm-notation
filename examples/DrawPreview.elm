@@ -1,6 +1,7 @@
 module DrawPreview exposing (..)
 
 import Notation.Basic exposing (..)
+import Notation.Component exposing (..)
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
 import Html exposing (..)
@@ -29,6 +30,14 @@ main =
         , coordinate "natural" <| natural []
         , coordinate "doubleFlat" <| doubleFlat []
         , coordinate "doubleSharp" <| doubleSharp []
+        , coordinate "flag8thUp" <| flag8thUp []
+        , coordinate "flag8thDown" <| flag8thDown []
+        , coordinate "flag16thUp" <| flag16thUp []
+        , coordinate "flag16thDown" <| flag16thDown []
+        , coordinate "note {duration = 0}" <| note { duration = 0 } []
+        , coordinate "note {duration = 1}" <| note { duration = 1 } []
+        , coordinate "note {duration = 2}" <| note { duration = 2 } []
+        , coordinate "note {duration = 3}" <| note { duration = 3 } []
         ]
 
 
@@ -36,23 +45,23 @@ coordinate : String -> Svg msg -> Html msg
 coordinate label content =
     let
         boxSize =
-            toString (Var.keyMeasure * 20)
+            toString 20
 
         lineLength =
-            (toString (Var.keyMeasure * 10))
+            (toString 10)
 
         lineLengthDouble =
-            (toString (Var.keyMeasure * 20))
+            (toString 20)
 
         trans =
             "translate(" ++ lineLength ++ "," ++ lineLength ++ ")"
     in
         div [ Html.Attributes.style [ ( "padding", "20px" ), ( "height", "200px" ), ( "width", "200px" ) ] ]
             [ svg [ viewBox ("0 0 " ++ boxSize ++ " " ++ boxSize) ]
-                [ line [ stroke "grey", strokeDasharray "5, 5", x1 lineLength, y1 "0", x2 lineLength, y2 lineLength ] []
-                , line [ stroke "grey", x1 lineLength, y1 lineLength, x2 lineLength, y2 lineLengthDouble ] []
-                , line [ stroke "grey", strokeDasharray "5, 5", x1 "0", y1 lineLength, x2 lineLength, y2 lineLength ] []
-                , line [ stroke "grey", x1 lineLength, y1 lineLength, x2 lineLengthDouble, y2 lineLength ] []
+                [ line [ stroke "grey", strokeWidth "0.05", strokeDasharray "1, 1", x1 lineLength, y1 "0", x2 lineLength, y2 lineLength ] []
+                , line [ stroke "grey", strokeWidth "0.05", x1 lineLength, y1 lineLength, x2 lineLength, y2 lineLengthDouble ] []
+                , line [ stroke "grey", strokeWidth "0.05", strokeDasharray "1, 1", x1 "0", y1 lineLength, x2 lineLength, y2 lineLength ] []
+                , line [ stroke "grey", strokeWidth "0.05", x1 lineLength, y1 lineLength, x2 lineLengthDouble, y2 lineLength ] []
                 , g [ transform trans ] [ content ]
                 ]
             , div [ Html.Attributes.style [ ( "text-align", "center" ) ] ] [ Html.text label ]

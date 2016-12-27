@@ -1,41 +1,48 @@
 module Notation.Variables exposing (..)
 
 
-keyMeasure : Float
-keyMeasure =
-    20
-
-
 beamThickness : Float
 beamThickness =
-    0.5 * keyMeasure
+    0.5
 
 
 fontSize : Float
 fontSize =
-    4 * keyMeasure
+    4
 
 
 staffLineThickness : Float
 staffLineThickness =
-    0.13 * keyMeasure
+    0.13
 
 
 thickBarlineThickness : Float
 thickBarlineThickness =
-    0.5 * keyMeasure
+    0.5
 
 
 thinBarlineThickness : Float
 thinBarlineThickness =
-    0.16 * keyMeasure
+    0.16
 
 
 stemThickness : Float
 stemThickness =
-    0.12 * keyMeasure
+    0.12
 
 
 color : String
 color =
     "black"
+
+
+{-| relative to keyMeasure
+-}
+stemLengthStandard : Float
+stemLengthStandard =
+    3.5
+
+
+noteHeadBlack =
+    { stemUpSE = ( 1.18, 0.168 )
+    }

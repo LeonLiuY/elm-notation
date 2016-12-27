@@ -1,4 +1,30 @@
-module Notation.Basic exposing (staffLine, staff5Line, barlineThick, barlineThin, clef, gClef, fClef, beamUpper, beamLower, noteHead, whole, half, black, stem, augmentationDot, flat, sharp, natural, doubleFlat, doubleSharp)
+module Notation.Basic
+    exposing
+        ( staffLine
+        , staff5Line
+        , barlineThick
+        , barlineThin
+        , clef
+        , gClef
+        , fClef
+        , beamUpper
+        , beamLower
+        , noteHead
+        , whole
+        , half
+        , black
+        , stem
+        , augmentationDot
+        , flat
+        , sharp
+        , natural
+        , doubleFlat
+        , doubleSharp
+        , flag8thUp
+        , flag8thDown
+        , flag16thUp
+        , flag16thDown
+        )
 
 {-| Draw kinds of music notations.
 
@@ -7,7 +33,7 @@ Each component specifies the detailed formation of the component.
 All length parameters are the measurements expressed in staff spaces.
 
 # Components
-@docs staffLine, staff5Line, barlineThick, barlineThin, clef, gClef, fClef, beamUpper, beamLower, noteHead, whole, half, black, stem, augmentationDot, flat, sharp, natural, doubleFlat, doubleSharp
+@docs staffLine, staff5Line, barlineThick, barlineThin, clef, gClef, fClef, beamUpper, beamLower, noteHead, whole, half, black, stem, augmentationDot, flat, sharp, natural, doubleFlat, doubleSharp, flag8thUp, flag8thDown, flag16thUp, flag16thDown
 -}
 
 import Svg exposing (..)
@@ -20,28 +46,28 @@ import Notation.Variables as Var
 -}
 staffLine : Float -> List (Attribute msg) -> Svg msg
 staffLine length attr =
-    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 (toString (length * Var.keyMeasure)), y2 "0", stroke Var.color, strokeWidth (toString Var.staffLineThickness) ] ++ attr) []) length attr
+    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 (toString length), y2 "0", stroke Var.color, strokeWidth (toString Var.staffLineThickness) ] ++ attr) []) length attr
 
 
 {-| Draw a standard five-line stave, where the top line lies on the x-axis from (0, 0) to (length , 0).
 -}
 staff5Line : Float -> List (Attribute msg) -> Svg msg
 staff5Line length attr =
-    lazy2 (\length attr -> g attr <| List.map (\n -> staffLine length [ y1 (toString (n * Var.keyMeasure)), y2 (toString (n * Var.keyMeasure)) ]) [ 0, 1, 2, 3, 4 ]) length attr
+    lazy2 (\length attr -> g attr <| List.map (\n -> staffLine length [ y1 (toString n), y2 (toString n) ]) [ 0, 1, 2, 3, 4 ]) length attr
 
 
 {-| Draw a thick barline from (0, 0) to (0, length) on the y-axis.
 -}
 barlineThick : Float -> List (Attribute msg) -> Svg msg
 barlineThick length attr =
-    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 "0", y2 (toString (length * Var.keyMeasure)), stroke Var.color, strokeWidth (toString Var.thickBarlineThickness) ] ++ attr) []) length attr
+    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 "0", y2 (toString length), stroke Var.color, strokeWidth (toString Var.thickBarlineThickness) ] ++ attr) []) length attr
 
 
 {-| Draw a thin barline from (0, 0) to (0, length) on the y-axis.
 -}
 barlineThin : Float -> List (Attribute msg) -> Svg msg
 barlineThin length attr =
-    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 "0", y2 (toString (length * Var.keyMeasure)), stroke Var.color, strokeWidth (toString Var.thinBarlineThickness) ] ++ attr) []) length attr
+    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 "0", y2 (toString length), stroke Var.color, strokeWidth (toString Var.thinBarlineThickness) ] ++ attr) []) length attr
 
 
 {-| Draw a celf, which takes the x-axis as the placement line on a stave and left ended at y-axis
@@ -72,8 +98,8 @@ beamUpper ( x, y ) attr =
         pts =
             String.join " "
                 [ "0,0"
-                , pointAsString ( x * Var.keyMeasure, y * Var.keyMeasure )
-                , pointAsString ( x * Var.keyMeasure, y * Var.keyMeasure - beamOffset ( x, y ) )
+                , pointAsString ( x, y )
+                , pointAsString ( x, y - beamOffset ( x, y ) )
                 , pointAsString ( 0, 0 - beamOffset ( x, y ) )
                 ]
     in
@@ -89,8 +115,8 @@ beamLower ( x, y ) attr =
         pts =
             String.join " "
                 [ "0,0"
-                , pointAsString ( x * Var.keyMeasure, y * Var.keyMeasure )
-                , pointAsString ( x * Var.keyMeasure, y * Var.keyMeasure + beamOffset ( x, y ) )
+                , pointAsString ( x, y )
+                , pointAsString ( x, y + beamOffset ( x, y ) )
                 , pointAsString ( 0, beamOffset ( x, y ) )
                 ]
     in
@@ -126,7 +152,7 @@ black =
 -}
 stem : Float -> List (Attribute msg) -> Svg msg
 stem length attr =
-    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 "0", y2 (toString (length * Var.keyMeasure)), stroke Var.color, strokeWidth (toString Var.stemThickness) ] ++ attr) []) length attr
+    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 "0", y2 (toString length), stroke Var.color, strokeWidth (toString Var.stemThickness) ] ++ attr) []) length attr
 
 
 {-| Draw a augmentation dot centered at (0, 0).
@@ -169,6 +195,34 @@ doubleSharp attr =
 doubleFlat : List (Attribute msg) -> Svg msg
 doubleFlat attr =
     lazy (\attr -> glyph "\xE264" attr) attr
+
+
+{-| Draw an 8th flag for up stem around (0, 0).
+-}
+flag8thUp : List (Attribute msg) -> Svg msg
+flag8thUp attr =
+    lazy (\attr -> glyph "\xE240" attr) attr
+
+
+{-| Draw an 8th flag for down stem around (0, 0).
+-}
+flag8thDown : List (Attribute msg) -> Svg msg
+flag8thDown attr =
+    lazy (\attr -> glyph "\xE241" attr) attr
+
+
+{-| Draw an 16th flag for up stem around (0, 0).
+-}
+flag16thUp : List (Attribute msg) -> Svg msg
+flag16thUp attr =
+    lazy (\attr -> glyph "\xE242" attr) attr
+
+
+{-| Draw an 16th flag for down stem around (0, 0).
+-}
+flag16thDown : List (Attribute msg) -> Svg msg
+flag16thDown attr =
+    lazy (\attr -> glyph "\xE243" attr) attr
 
 
 
