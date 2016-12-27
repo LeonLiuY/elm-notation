@@ -103,7 +103,7 @@ beamUpper ( x, y ) attr =
                 , pointAsString ( 0, 0 - beamOffset ( x, y ) )
                 ]
     in
-        lazy2 (\( x, y ) attr -> polygon ([ fill Var.color, stroke Var.color, points pts ] ++ attr) []) ( x, y ) attr
+        lazy2 (\( x, y ) attr -> polygon ([ fill Var.color, strokeWidth "0", points pts ] ++ attr) []) ( x, y ) attr
 
 
 {-| Draw a beam, with the left-bottom corner (0, 0), and right-bottom corner (x, y).
@@ -120,7 +120,7 @@ beamLower ( x, y ) attr =
                 , pointAsString ( 0, beamOffset ( x, y ) )
                 ]
     in
-        lazy2 (\( x, y ) attr -> polygon ([ fill Var.color, stroke Var.color, points pts ] ++ attr) []) ( x, y ) attr
+        lazy2 (\( x, y ) attr -> polygon ([ fill Var.color, strokeWidth "0", points pts ] ++ attr) []) ( x, y ) attr
 
 
 {-| Draw a note head, vertically centered by x-axis and left ended at y-axis
