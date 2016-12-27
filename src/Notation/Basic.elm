@@ -99,8 +99,8 @@ beamUpper ( x, y ) attr =
             String.join " "
                 [ "0,0"
                 , pointAsString ( x, y )
-                , pointAsString ( x, y - beamOffset ( x, y ) )
-                , pointAsString ( 0, 0 - beamOffset ( x, y ) )
+                , pointAsString ( x, y + beamOffset ( x, y ) )
+                , pointAsString ( 0, beamOffset ( x, y ) )
                 ]
     in
         lazy2 (\( x, y ) attr -> polygon ([ fill Var.color, strokeWidth "0", points pts ] ++ attr) []) ( x, y ) attr
@@ -116,8 +116,8 @@ beamLower ( x, y ) attr =
             String.join " "
                 [ "0,0"
                 , pointAsString ( x, y )
-                , pointAsString ( x, y + beamOffset ( x, y ) )
-                , pointAsString ( 0, beamOffset ( x, y ) )
+                , pointAsString ( x, y - beamOffset ( x, y ) )
+                , pointAsString ( 0, 0 - beamOffset ( x, y ) )
                 ]
     in
         lazy2 (\( x, y ) attr -> polygon ([ fill Var.color, strokeWidth "0", points pts ] ++ attr) []) ( x, y ) attr
