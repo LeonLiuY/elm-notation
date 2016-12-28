@@ -43,6 +43,7 @@ stemLengthStandard =
     3.5
 
 
-noteHeadBlack =
+noteHeadMeta =
     { stemUpSE = ( 1.18, 0.168 )
+    , stemDownNW = ( 0.0, -0.168 )
     }

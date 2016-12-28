@@ -14,6 +14,7 @@ import Notation.Helper exposing (..)
 
 type alias Note =
     { duration : Int
+    , stemDirection : Direction
     }
 
 
@@ -30,27 +31,27 @@ note n attr =
                 1 ->
                     g ([] ++ attr)
                         [ noteHead half []
-                        , stemUpSE
+                        , stemForDirection n.stemDirection
                         ]
 
                 2 ->
                     g ([] ++ attr)
                         [ noteHead black []
-                        , stemUpSE
+                        , stemForDirection n.stemDirection
                         ]
 
                 3 ->
                     g ([] ++ attr)
                         [ noteHead black []
-                        , stemUpSE
-                        , flagForStemUp flag8thUp
+                        , stemForDirection n.stemDirection
+                        , flagForStem n.stemDirection flag8th
                         ]
 
                 _ ->
                     g ([] ++ attr)
                         [ noteHead black []
-                        , stemUpSE
-                        , flagForStemUp flag16thUp
+                        , stemForDirection n.stemDirection
+                        , flagForStem n.stemDirection flag16th
                         ]
         )
         n
@@ -61,29 +62,45 @@ note n attr =
 {- Private -}
 
 
-stemUpSE : Svg msg
-stemUpSE =
-    stem (stemLengthStandard - (Tuple.second noteHeadBlack.stemUpSE))
+stemForDirection : Direction -> Svg msg
+stemForDirection direction =
+    case direction of
+        Up ->
+            stem (stemLengthStandard - (Tuple.second noteHeadMeta.stemUpSE))
+                [ let
+                    x =
+                        (Tuple.first noteHeadMeta.stemUpSE) - stemThickness / 2
+
+                    y =
+                        -stemLengthStandard
+                  in
+                    translate ( x, y )
+                ]
+
+        Down ->
+            stem (stemLengthStandard - (Tuple.second noteHeadMeta.stemDownNW))
+                [ let
+                    x =
+                        (Tuple.first noteHeadMeta.stemDownNW) + stemThickness / 2
+
+                    y =
+                        -(Tuple.second noteHeadMeta.stemDownNW)
+                  in
+                    translate ( x, y )
+                ]
+
+
+flagForStem : Direction -> (Direction -> List (Attribute msg) -> Svg msg) -> Svg msg
+flagForStem direction flag =
+    flag direction
         [ let
-            x =
-                (Tuple.first noteHeadBlack.stemUpSE) - stemThickness / 2
+            movement =
+                case direction of
+                    Up ->
+                        ( (Tuple.first noteHeadMeta.stemUpSE), -stemLengthStandard )
 
-            y =
-                -stemLengthStandard
+                    Down ->
+                        ( (Tuple.first noteHeadMeta.stemDownNW), stemLengthStandard )
           in
-            translate ( x, y )
-        ]
-
-
-flagForStemUp : (List (Attribute msg) -> Svg msg) -> Svg msg
-flagForStemUp flag =
-    flag
-        [ let
-            x =
-                (Tuple.first noteHeadBlack.stemUpSE) - stemThickness
-
-            y =
-                -stemLengthStandard
-          in
-            translate ( x, y )
+            translate movement
         ]

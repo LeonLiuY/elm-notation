@@ -20,10 +20,9 @@ module Notation.Basic
         , natural
         , doubleFlat
         , doubleSharp
-        , flag8thUp
-        , flag8thDown
-        , flag16thUp
-        , flag16thDown
+        , flag8th
+        , flag16th
+        , Direction(..)
         )
 
 {-| Draw kinds of music notations.
@@ -33,7 +32,7 @@ Each component specifies the detailed formation of the component.
 All length parameters are the measurements expressed in staff spaces.
 
 # Components
-@docs staffLine, staff5Line, barlineThick, barlineThin, clef, gClef, fClef, beamUpper, beamLower, noteHead, whole, half, black, stem, augmentationDot, flat, sharp, natural, doubleFlat, doubleSharp, flag8thUp, flag8thDown, flag16thUp, flag16thDown
+@docs staffLine, staff5Line, barlineThick, barlineThin, clef, gClef, fClef, beamUpper, beamLower, noteHead, whole, half, black, stem, augmentationDot, flat, sharp, natural, doubleFlat, doubleSharp, flag8th, flag16th, Direction
 -}
 
 import Svg exposing (..)
@@ -197,32 +196,48 @@ doubleFlat attr =
     lazy (\attr -> glyph "\xE264" attr) attr
 
 
-{-| Draw an 8th flag for up stem around (0, 0).
+{-| Draw an 8th flag for stem around (0, 0).
 -}
-flag8thUp : List (Attribute msg) -> Svg msg
-flag8thUp attr =
-    lazy (\attr -> glyph "\xE240" attr) attr
+flag8th : Direction -> List (Attribute msg) -> Svg msg
+flag8th direction attr =
+    lazy
+        (\attr ->
+            glyph
+                (case direction of
+                    Up ->
+                        "\xE240"
+
+                    Down ->
+                        "\xE241"
+                )
+                attr
+        )
+        attr
 
 
-{-| Draw an 8th flag for down stem around (0, 0).
+{-| Draw an 16th flag for stem around (0, 0).
 -}
-flag8thDown : List (Attribute msg) -> Svg msg
-flag8thDown attr =
-    lazy (\attr -> glyph "\xE241" attr) attr
+flag16th : Direction -> List (Attribute msg) -> Svg msg
+flag16th direction attr =
+    lazy
+        (\attr ->
+            glyph
+                (case direction of
+                    Up ->
+                        "\xE242"
+
+                    Down ->
+                        "\xE243"
+                )
+                attr
+        )
+        attr
 
 
-{-| Draw an 16th flag for up stem around (0, 0).
--}
-flag16thUp : List (Attribute msg) -> Svg msg
-flag16thUp attr =
-    lazy (\attr -> glyph "\xE242" attr) attr
-
-
-{-| Draw an 16th flag for down stem around (0, 0).
--}
-flag16thDown : List (Attribute msg) -> Svg msg
-flag16thDown attr =
-    lazy (\attr -> glyph "\xE243" attr) attr
+{-| -}
+type Direction
+    = Up
+    | Down
 
 
 
