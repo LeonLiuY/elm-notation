@@ -8486,14 +8486,17 @@ var _elm_lang$svg$Svg_Lazy$lazy3 = _elm_lang$virtual_dom$VirtualDom$lazy3;
 var _elm_lang$svg$Svg_Lazy$lazy2 = _elm_lang$virtual_dom$VirtualDom$lazy2;
 var _elm_lang$svg$Svg_Lazy$lazy = _elm_lang$virtual_dom$VirtualDom$lazy;
 
+var _liuyang1204$elm_notation$Notation_Variables$noteHeadBlack = {
+	stemUpSE: {ctor: '_Tuple2', _0: 1.18, _1: 0.168}
+};
+var _liuyang1204$elm_notation$Notation_Variables$stemLengthStandard = 3.5;
 var _liuyang1204$elm_notation$Notation_Variables$color = 'black';
-var _liuyang1204$elm_notation$Notation_Variables$keyMeasure = 20;
-var _liuyang1204$elm_notation$Notation_Variables$beamThickness = 0.5 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure;
-var _liuyang1204$elm_notation$Notation_Variables$fontSize = 4 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure;
-var _liuyang1204$elm_notation$Notation_Variables$staffLineThickness = 0.13 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure;
-var _liuyang1204$elm_notation$Notation_Variables$thickBarlineThickness = 0.5 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure;
-var _liuyang1204$elm_notation$Notation_Variables$thinBarlineThickness = 0.16 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure;
-var _liuyang1204$elm_notation$Notation_Variables$stemThickness = 0.12 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure;
+var _liuyang1204$elm_notation$Notation_Variables$stemThickness = 0.12;
+var _liuyang1204$elm_notation$Notation_Variables$thinBarlineThickness = 0.16;
+var _liuyang1204$elm_notation$Notation_Variables$thickBarlineThickness = 0.5;
+var _liuyang1204$elm_notation$Notation_Variables$staffLineThickness = 0.13;
+var _liuyang1204$elm_notation$Notation_Variables$fontSize = 4;
+var _liuyang1204$elm_notation$Notation_Variables$beamThickness = 0.5;
 
 var _liuyang1204$elm_notation$Notation_Basic$glyph = F2(
 	function (str, attr) {
@@ -8569,6 +8572,38 @@ var _liuyang1204$elm_notation$Notation_Basic$beamOffset = function (_p4) {
 	return (_elm_lang$core$Basics$sqrt(
 		Math.pow(_p6, 2) + Math.pow(_p5._1, 2)) / _p6) * _liuyang1204$elm_notation$Notation_Variables$beamThickness;
 };
+var _liuyang1204$elm_notation$Notation_Basic$flag16thDown = function (attr) {
+	return A2(
+		_elm_lang$svg$Svg_Lazy$lazy,
+		function (attr) {
+			return A2(_liuyang1204$elm_notation$Notation_Basic$glyph, '', attr);
+		},
+		attr);
+};
+var _liuyang1204$elm_notation$Notation_Basic$flag16thUp = function (attr) {
+	return A2(
+		_elm_lang$svg$Svg_Lazy$lazy,
+		function (attr) {
+			return A2(_liuyang1204$elm_notation$Notation_Basic$glyph, '', attr);
+		},
+		attr);
+};
+var _liuyang1204$elm_notation$Notation_Basic$flag8thDown = function (attr) {
+	return A2(
+		_elm_lang$svg$Svg_Lazy$lazy,
+		function (attr) {
+			return A2(_liuyang1204$elm_notation$Notation_Basic$glyph, '', attr);
+		},
+		attr);
+};
+var _liuyang1204$elm_notation$Notation_Basic$flag8thUp = function (attr) {
+	return A2(
+		_elm_lang$svg$Svg_Lazy$lazy,
+		function (attr) {
+			return A2(_liuyang1204$elm_notation$Notation_Basic$glyph, '', attr);
+		},
+		attr);
+};
 var _liuyang1204$elm_notation$Notation_Basic$doubleFlat = function (attr) {
 	return A2(
 		_elm_lang$svg$Svg_Lazy$lazy,
@@ -8639,7 +8674,7 @@ var _liuyang1204$elm_notation$Notation_Basic$stem = F2(
 										_1: {
 											ctor: '::',
 											_0: _elm_lang$svg$Svg_Attributes$y2(
-												_elm_lang$core$Basics$toString(length * _liuyang1204$elm_notation$Notation_Variables$keyMeasure)),
+												_elm_lang$core$Basics$toString(length)),
 											_1: {
 												ctor: '::',
 												_0: _elm_lang$svg$Svg_Attributes$stroke(_liuyang1204$elm_notation$Notation_Variables$color),
@@ -8688,14 +8723,14 @@ var _liuyang1204$elm_notation$Notation_Basic$beamLower = F2(
 				_1: {
 					ctor: '::',
 					_0: _liuyang1204$elm_notation$Notation_Basic$pointAsString(
-						{ctor: '_Tuple2', _0: _p11 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure, _1: _p12 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure}),
+						{ctor: '_Tuple2', _0: _p11, _1: _p12}),
 					_1: {
 						ctor: '::',
 						_0: _liuyang1204$elm_notation$Notation_Basic$pointAsString(
 							{
 								ctor: '_Tuple2',
-								_0: _p11 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure,
-								_1: (_p12 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure) + _liuyang1204$elm_notation$Notation_Basic$beamOffset(
+								_0: _p11,
+								_1: _p12 - _liuyang1204$elm_notation$Notation_Basic$beamOffset(
 									{ctor: '_Tuple2', _0: _p11, _1: _p12})
 							}),
 						_1: {
@@ -8704,7 +8739,7 @@ var _liuyang1204$elm_notation$Notation_Basic$beamLower = F2(
 								{
 									ctor: '_Tuple2',
 									_0: 0,
-									_1: _liuyang1204$elm_notation$Notation_Basic$beamOffset(
+									_1: 0 - _liuyang1204$elm_notation$Notation_Basic$beamOffset(
 										{ctor: '_Tuple2', _0: _p11, _1: _p12})
 								}),
 							_1: {ctor: '[]'}
@@ -8726,7 +8761,7 @@ var _liuyang1204$elm_notation$Notation_Basic$beamLower = F2(
 								_0: _elm_lang$svg$Svg_Attributes$fill(_liuyang1204$elm_notation$Notation_Variables$color),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$stroke(_liuyang1204$elm_notation$Notation_Variables$color),
+									_0: _elm_lang$svg$Svg_Attributes$strokeWidth('0'),
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$svg$Svg_Attributes$points(pts),
@@ -8754,14 +8789,14 @@ var _liuyang1204$elm_notation$Notation_Basic$beamUpper = F2(
 				_1: {
 					ctor: '::',
 					_0: _liuyang1204$elm_notation$Notation_Basic$pointAsString(
-						{ctor: '_Tuple2', _0: _p17 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure, _1: _p18 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure}),
+						{ctor: '_Tuple2', _0: _p17, _1: _p18}),
 					_1: {
 						ctor: '::',
 						_0: _liuyang1204$elm_notation$Notation_Basic$pointAsString(
 							{
 								ctor: '_Tuple2',
-								_0: _p17 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure,
-								_1: (_p18 * _liuyang1204$elm_notation$Notation_Variables$keyMeasure) - _liuyang1204$elm_notation$Notation_Basic$beamOffset(
+								_0: _p17,
+								_1: _p18 + _liuyang1204$elm_notation$Notation_Basic$beamOffset(
 									{ctor: '_Tuple2', _0: _p17, _1: _p18})
 							}),
 						_1: {
@@ -8770,7 +8805,7 @@ var _liuyang1204$elm_notation$Notation_Basic$beamUpper = F2(
 								{
 									ctor: '_Tuple2',
 									_0: 0,
-									_1: 0 - _liuyang1204$elm_notation$Notation_Basic$beamOffset(
+									_1: _liuyang1204$elm_notation$Notation_Basic$beamOffset(
 										{ctor: '_Tuple2', _0: _p17, _1: _p18})
 								}),
 							_1: {ctor: '[]'}
@@ -8792,7 +8827,7 @@ var _liuyang1204$elm_notation$Notation_Basic$beamUpper = F2(
 								_0: _elm_lang$svg$Svg_Attributes$fill(_liuyang1204$elm_notation$Notation_Variables$color),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$stroke(_liuyang1204$elm_notation$Notation_Variables$color),
+									_0: _elm_lang$svg$Svg_Attributes$strokeWidth('0'),
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$svg$Svg_Attributes$points(pts),
@@ -8842,7 +8877,7 @@ var _liuyang1204$elm_notation$Notation_Basic$barlineThin = F2(
 										_1: {
 											ctor: '::',
 											_0: _elm_lang$svg$Svg_Attributes$y2(
-												_elm_lang$core$Basics$toString(length * _liuyang1204$elm_notation$Notation_Variables$keyMeasure)),
+												_elm_lang$core$Basics$toString(length)),
 											_1: {
 												ctor: '::',
 												_0: _elm_lang$svg$Svg_Attributes$stroke(_liuyang1204$elm_notation$Notation_Variables$color),
@@ -8885,7 +8920,7 @@ var _liuyang1204$elm_notation$Notation_Basic$barlineThick = F2(
 										_1: {
 											ctor: '::',
 											_0: _elm_lang$svg$Svg_Attributes$y2(
-												_elm_lang$core$Basics$toString(length * _liuyang1204$elm_notation$Notation_Variables$keyMeasure)),
+												_elm_lang$core$Basics$toString(length)),
 											_1: {
 												ctor: '::',
 												_0: _elm_lang$svg$Svg_Attributes$stroke(_liuyang1204$elm_notation$Notation_Variables$color),
@@ -8925,7 +8960,7 @@ var _liuyang1204$elm_notation$Notation_Basic$staffLine = F2(
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$svg$Svg_Attributes$x2(
-											_elm_lang$core$Basics$toString(length * _liuyang1204$elm_notation$Notation_Variables$keyMeasure)),
+											_elm_lang$core$Basics$toString(length)),
 										_1: {
 											ctor: '::',
 											_0: _elm_lang$svg$Svg_Attributes$y2('0'),
@@ -8967,11 +9002,11 @@ var _liuyang1204$elm_notation$Notation_Basic$staff5Line = F2(
 									{
 										ctor: '::',
 										_0: _elm_lang$svg$Svg_Attributes$y1(
-											_elm_lang$core$Basics$toString(n * _liuyang1204$elm_notation$Notation_Variables$keyMeasure)),
+											_elm_lang$core$Basics$toString(n)),
 										_1: {
 											ctor: '::',
 											_0: _elm_lang$svg$Svg_Attributes$y2(
-												_elm_lang$core$Basics$toString(n * _liuyang1204$elm_notation$Notation_Variables$keyMeasure)),
+												_elm_lang$core$Basics$toString(n)),
 											_1: {ctor: '[]'}
 										}
 									});
@@ -9012,21 +9047,158 @@ var _liuyang1204$elm_notation$Notation_Basic$half = _liuyang1204$elm_notation$No
 var _liuyang1204$elm_notation$Notation_Basic$Whole = {ctor: 'Whole'};
 var _liuyang1204$elm_notation$Notation_Basic$whole = _liuyang1204$elm_notation$Notation_Basic$Whole;
 
-var _liuyang1204$elm_notation$DrawPreview$coordinate = F2(
-	function (label, content) {
-		var lineLengthDouble = _elm_lang$core$Basics$toString(_liuyang1204$elm_notation$Notation_Variables$keyMeasure * 20);
-		var lineLength = _elm_lang$core$Basics$toString(_liuyang1204$elm_notation$Notation_Variables$keyMeasure * 10);
-		var trans = A2(
+var _liuyang1204$elm_notation$Notation_Helper$translate = function (_p0) {
+	var _p1 = _p0;
+	return _elm_lang$svg$Svg_Attributes$transform(
+		A2(
 			_elm_lang$core$Basics_ops['++'],
 			'translate(',
 			A2(
 				_elm_lang$core$Basics_ops['++'],
-				lineLength,
+				_elm_lang$core$Basics$toString(_p1._0),
 				A2(
 					_elm_lang$core$Basics_ops['++'],
 					',',
-					A2(_elm_lang$core$Basics_ops['++'], lineLength, ')'))));
-		var boxSize = _elm_lang$core$Basics$toString(_liuyang1204$elm_notation$Notation_Variables$keyMeasure * 20);
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						_elm_lang$core$Basics$toString(_p1._1),
+						')')))));
+};
+
+var _liuyang1204$elm_notation$Notation_Component$flagForStemUp = function (flag) {
+	return flag(
+		{
+			ctor: '::',
+			_0: function () {
+				var y = 0 - _liuyang1204$elm_notation$Notation_Variables$stemLengthStandard;
+				var x = _elm_lang$core$Tuple$first(_liuyang1204$elm_notation$Notation_Variables$noteHeadBlack.stemUpSE) - _liuyang1204$elm_notation$Notation_Variables$stemThickness;
+				return _liuyang1204$elm_notation$Notation_Helper$translate(
+					{ctor: '_Tuple2', _0: x, _1: y});
+			}(),
+			_1: {ctor: '[]'}
+		});
+};
+var _liuyang1204$elm_notation$Notation_Component$stemUpSE = A2(
+	_liuyang1204$elm_notation$Notation_Basic$stem,
+	_liuyang1204$elm_notation$Notation_Variables$stemLengthStandard - _elm_lang$core$Tuple$second(_liuyang1204$elm_notation$Notation_Variables$noteHeadBlack.stemUpSE),
+	{
+		ctor: '::',
+		_0: function () {
+			var y = 0 - _liuyang1204$elm_notation$Notation_Variables$stemLengthStandard;
+			var x = _elm_lang$core$Tuple$first(_liuyang1204$elm_notation$Notation_Variables$noteHeadBlack.stemUpSE) - (_liuyang1204$elm_notation$Notation_Variables$stemThickness / 2);
+			return _liuyang1204$elm_notation$Notation_Helper$translate(
+				{ctor: '_Tuple2', _0: x, _1: y});
+		}(),
+		_1: {ctor: '[]'}
+	});
+var _liuyang1204$elm_notation$Notation_Component$note = F2(
+	function (n, attr) {
+		return A3(
+			_elm_lang$svg$Svg_Lazy$lazy2,
+			F2(
+				function (n, attr) {
+					var _p0 = n.duration;
+					switch (_p0) {
+						case 0:
+							return A2(_liuyang1204$elm_notation$Notation_Basic$noteHead, _liuyang1204$elm_notation$Notation_Basic$whole, attr);
+						case 1:
+							return A2(
+								_elm_lang$svg$Svg$g,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									{ctor: '[]'},
+									attr),
+								{
+									ctor: '::',
+									_0: A2(
+										_liuyang1204$elm_notation$Notation_Basic$noteHead,
+										_liuyang1204$elm_notation$Notation_Basic$half,
+										{ctor: '[]'}),
+									_1: {
+										ctor: '::',
+										_0: _liuyang1204$elm_notation$Notation_Component$stemUpSE,
+										_1: {ctor: '[]'}
+									}
+								});
+						case 2:
+							return A2(
+								_elm_lang$svg$Svg$g,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									{ctor: '[]'},
+									attr),
+								{
+									ctor: '::',
+									_0: A2(
+										_liuyang1204$elm_notation$Notation_Basic$noteHead,
+										_liuyang1204$elm_notation$Notation_Basic$black,
+										{ctor: '[]'}),
+									_1: {
+										ctor: '::',
+										_0: _liuyang1204$elm_notation$Notation_Component$stemUpSE,
+										_1: {ctor: '[]'}
+									}
+								});
+						case 3:
+							return A2(
+								_elm_lang$svg$Svg$g,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									{ctor: '[]'},
+									attr),
+								{
+									ctor: '::',
+									_0: A2(
+										_liuyang1204$elm_notation$Notation_Basic$noteHead,
+										_liuyang1204$elm_notation$Notation_Basic$black,
+										{ctor: '[]'}),
+									_1: {
+										ctor: '::',
+										_0: _liuyang1204$elm_notation$Notation_Component$stemUpSE,
+										_1: {
+											ctor: '::',
+											_0: _liuyang1204$elm_notation$Notation_Component$flagForStemUp(_liuyang1204$elm_notation$Notation_Basic$flag8thUp),
+											_1: {ctor: '[]'}
+										}
+									}
+								});
+						default:
+							return A2(
+								_elm_lang$svg$Svg$g,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									{ctor: '[]'},
+									attr),
+								{
+									ctor: '::',
+									_0: A2(
+										_liuyang1204$elm_notation$Notation_Basic$noteHead,
+										_liuyang1204$elm_notation$Notation_Basic$black,
+										{ctor: '[]'}),
+									_1: {
+										ctor: '::',
+										_0: _liuyang1204$elm_notation$Notation_Component$stemUpSE,
+										_1: {
+											ctor: '::',
+											_0: _liuyang1204$elm_notation$Notation_Component$flagForStemUp(_liuyang1204$elm_notation$Notation_Basic$flag16thUp),
+											_1: {ctor: '[]'}
+										}
+									}
+								});
+					}
+				}),
+			n,
+			attr);
+	});
+var _liuyang1204$elm_notation$Notation_Component$Note = function (a) {
+	return {duration: a};
+};
+
+var _liuyang1204$elm_notation$DrawPreview$coordinate = F2(
+	function (label, content) {
+		var lineLengthDouble = _elm_lang$core$Basics$toString(20);
+		var lineLength = _elm_lang$core$Basics$toString(10);
+		var boxSize = _elm_lang$core$Basics$toString(20);
 		return A2(
 			_elm_lang$html$Html$div,
 			{
@@ -9072,20 +9244,24 @@ var _liuyang1204$elm_notation$DrawPreview$coordinate = F2(
 								_0: _elm_lang$svg$Svg_Attributes$stroke('grey'),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$strokeDasharray('5, 5'),
+									_0: _elm_lang$svg$Svg_Attributes$strokeWidth('0.05'),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$x1(lineLength),
+										_0: _elm_lang$svg$Svg_Attributes$strokeDasharray('1, 1'),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$y1('0'),
+											_0: _elm_lang$svg$Svg_Attributes$x1(lineLength),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$x2(lineLength),
+												_0: _elm_lang$svg$Svg_Attributes$y1('0'),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$y2(lineLength),
-													_1: {ctor: '[]'}
+													_0: _elm_lang$svg$Svg_Attributes$x2(lineLength),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$svg$Svg_Attributes$y2(lineLength),
+														_1: {ctor: '[]'}
+													}
 												}
 											}
 										}
@@ -9102,17 +9278,21 @@ var _liuyang1204$elm_notation$DrawPreview$coordinate = F2(
 									_0: _elm_lang$svg$Svg_Attributes$stroke('grey'),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$x1(lineLength),
+										_0: _elm_lang$svg$Svg_Attributes$strokeWidth('0.05'),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$y1(lineLength),
+											_0: _elm_lang$svg$Svg_Attributes$x1(lineLength),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$x2(lineLength),
+												_0: _elm_lang$svg$Svg_Attributes$y1(lineLength),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$y2(lineLengthDouble),
-													_1: {ctor: '[]'}
+													_0: _elm_lang$svg$Svg_Attributes$x2(lineLength),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$svg$Svg_Attributes$y2(lineLengthDouble),
+														_1: {ctor: '[]'}
+													}
 												}
 											}
 										}
@@ -9128,20 +9308,24 @@ var _liuyang1204$elm_notation$DrawPreview$coordinate = F2(
 										_0: _elm_lang$svg$Svg_Attributes$stroke('grey'),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$strokeDasharray('5, 5'),
+											_0: _elm_lang$svg$Svg_Attributes$strokeWidth('0.05'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$x1('0'),
+												_0: _elm_lang$svg$Svg_Attributes$strokeDasharray('1, 1'),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$y1(lineLength),
+													_0: _elm_lang$svg$Svg_Attributes$x1('0'),
 													_1: {
 														ctor: '::',
-														_0: _elm_lang$svg$Svg_Attributes$x2(lineLength),
+														_0: _elm_lang$svg$Svg_Attributes$y1(lineLength),
 														_1: {
 															ctor: '::',
-															_0: _elm_lang$svg$Svg_Attributes$y2(lineLength),
-															_1: {ctor: '[]'}
+															_0: _elm_lang$svg$Svg_Attributes$x2(lineLength),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$svg$Svg_Attributes$y2(lineLength),
+																_1: {ctor: '[]'}
+															}
 														}
 													}
 												}
@@ -9158,17 +9342,21 @@ var _liuyang1204$elm_notation$DrawPreview$coordinate = F2(
 											_0: _elm_lang$svg$Svg_Attributes$stroke('grey'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$x1(lineLength),
+												_0: _elm_lang$svg$Svg_Attributes$strokeWidth('0.05'),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$y1(lineLength),
+													_0: _elm_lang$svg$Svg_Attributes$x1(lineLength),
 													_1: {
 														ctor: '::',
-														_0: _elm_lang$svg$Svg_Attributes$x2(lineLengthDouble),
+														_0: _elm_lang$svg$Svg_Attributes$y1(lineLength),
 														_1: {
 															ctor: '::',
-															_0: _elm_lang$svg$Svg_Attributes$y2(lineLength),
-															_1: {ctor: '[]'}
+															_0: _elm_lang$svg$Svg_Attributes$x2(lineLengthDouble),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$svg$Svg_Attributes$y2(lineLength),
+																_1: {ctor: '[]'}
+															}
 														}
 													}
 												}
@@ -9181,7 +9369,8 @@ var _liuyang1204$elm_notation$DrawPreview$coordinate = F2(
 											_elm_lang$svg$Svg$g,
 											{
 												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$transform(trans),
+												_0: _liuyang1204$elm_notation$Notation_Helper$translate(
+													{ctor: '_Tuple2', _0: 10, _1: 10}),
 												_1: {ctor: '[]'}
 											},
 											{
@@ -9221,171 +9410,221 @@ var _liuyang1204$elm_notation$DrawPreview$coordinate = F2(
 var _liuyang1204$elm_notation$DrawPreview$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(
 	A2(
 		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$style(
-				{
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
-					_1: {
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'flex-wrap', _1: 'wrap'},
-						_1: {ctor: '[]'}
-					}
-				}),
-			_1: {ctor: '[]'}
-		},
+		{ctor: '[]'},
 		{
 			ctor: '::',
 			_0: A2(
-				_liuyang1204$elm_notation$DrawPreview$coordinate,
-				'staffLine 4',
-				A2(
-					_liuyang1204$elm_notation$Notation_Basic$staffLine,
-					4,
-					{ctor: '[]'})),
+				_elm_lang$html$Html$h1,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Basic'),
+					_1: {ctor: '[]'}
+				}),
 			_1: {
 				ctor: '::',
 				_0: A2(
-					_liuyang1204$elm_notation$DrawPreview$coordinate,
-					'staff5Line 4',
-					A2(
-						_liuyang1204$elm_notation$Notation_Basic$staff5Line,
-						4,
-						{ctor: '[]'})),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_liuyang1204$elm_notation$DrawPreview$coordinate,
-						'barlineThick',
-						A2(
-							_liuyang1204$elm_notation$Notation_Basic$barlineThick,
-							4,
-							{ctor: '[]'})),
-					_1: {
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'flex-wrap', _1: 'wrap'},
+									_1: {ctor: '[]'}
+								}
+							}),
+						_1: {ctor: '[]'}
+					},
+					{
 						ctor: '::',
 						_0: A2(
 							_liuyang1204$elm_notation$DrawPreview$coordinate,
-							'barlineThin',
+							'staffLine 4',
 							A2(
-								_liuyang1204$elm_notation$Notation_Basic$barlineThin,
+								_liuyang1204$elm_notation$Notation_Basic$staffLine,
 								4,
 								{ctor: '[]'})),
 						_1: {
 							ctor: '::',
 							_0: A2(
 								_liuyang1204$elm_notation$DrawPreview$coordinate,
-								'clef gClef',
+								'staff5Line 4',
 								A2(
-									_liuyang1204$elm_notation$Notation_Basic$clef,
-									_liuyang1204$elm_notation$Notation_Basic$gClef,
+									_liuyang1204$elm_notation$Notation_Basic$staff5Line,
+									4,
 									{ctor: '[]'})),
 							_1: {
 								ctor: '::',
 								_0: A2(
 									_liuyang1204$elm_notation$DrawPreview$coordinate,
-									'clef fClef',
+									'barlineThick',
 									A2(
-										_liuyang1204$elm_notation$Notation_Basic$clef,
-										_liuyang1204$elm_notation$Notation_Basic$fClef,
+										_liuyang1204$elm_notation$Notation_Basic$barlineThick,
+										4,
 										{ctor: '[]'})),
 								_1: {
 									ctor: '::',
 									_0: A2(
 										_liuyang1204$elm_notation$DrawPreview$coordinate,
-										'beamLower ( 4, 2 )',
+										'barlineThin',
 										A2(
-											_liuyang1204$elm_notation$Notation_Basic$beamLower,
-											{ctor: '_Tuple2', _0: 4, _1: 2},
+											_liuyang1204$elm_notation$Notation_Basic$barlineThin,
+											4,
 											{ctor: '[]'})),
 									_1: {
 										ctor: '::',
 										_0: A2(
 											_liuyang1204$elm_notation$DrawPreview$coordinate,
-											'beamUpper ( 4, -4 )',
+											'clef gClef',
 											A2(
-												_liuyang1204$elm_notation$Notation_Basic$beamUpper,
-												{ctor: '_Tuple2', _0: 4, _1: -4},
+												_liuyang1204$elm_notation$Notation_Basic$clef,
+												_liuyang1204$elm_notation$Notation_Basic$gClef,
 												{ctor: '[]'})),
 										_1: {
 											ctor: '::',
 											_0: A2(
 												_liuyang1204$elm_notation$DrawPreview$coordinate,
-												'noteHead whole',
+												'clef fClef',
 												A2(
-													_liuyang1204$elm_notation$Notation_Basic$noteHead,
-													_liuyang1204$elm_notation$Notation_Basic$whole,
+													_liuyang1204$elm_notation$Notation_Basic$clef,
+													_liuyang1204$elm_notation$Notation_Basic$fClef,
 													{ctor: '[]'})),
 											_1: {
 												ctor: '::',
 												_0: A2(
 													_liuyang1204$elm_notation$DrawPreview$coordinate,
-													'noteHead half',
+													'beamLower ( 4, 2 )',
 													A2(
-														_liuyang1204$elm_notation$Notation_Basic$noteHead,
-														_liuyang1204$elm_notation$Notation_Basic$half,
+														_liuyang1204$elm_notation$Notation_Basic$beamLower,
+														{ctor: '_Tuple2', _0: 4, _1: 2},
 														{ctor: '[]'})),
 												_1: {
 													ctor: '::',
 													_0: A2(
 														_liuyang1204$elm_notation$DrawPreview$coordinate,
-														'noteHead black',
+														'beamUpper ( 4, -4 )',
 														A2(
-															_liuyang1204$elm_notation$Notation_Basic$noteHead,
-															_liuyang1204$elm_notation$Notation_Basic$black,
+															_liuyang1204$elm_notation$Notation_Basic$beamUpper,
+															{ctor: '_Tuple2', _0: 4, _1: -4},
 															{ctor: '[]'})),
 													_1: {
 														ctor: '::',
 														_0: A2(
 															_liuyang1204$elm_notation$DrawPreview$coordinate,
-															'stem 4',
+															'noteHead whole',
 															A2(
-																_liuyang1204$elm_notation$Notation_Basic$stem,
-																4,
+																_liuyang1204$elm_notation$Notation_Basic$noteHead,
+																_liuyang1204$elm_notation$Notation_Basic$whole,
 																{ctor: '[]'})),
 														_1: {
 															ctor: '::',
 															_0: A2(
 																_liuyang1204$elm_notation$DrawPreview$coordinate,
-																'augmentationDot',
-																_liuyang1204$elm_notation$Notation_Basic$augmentationDot(
+																'noteHead half',
+																A2(
+																	_liuyang1204$elm_notation$Notation_Basic$noteHead,
+																	_liuyang1204$elm_notation$Notation_Basic$half,
 																	{ctor: '[]'})),
 															_1: {
 																ctor: '::',
 																_0: A2(
 																	_liuyang1204$elm_notation$DrawPreview$coordinate,
-																	'flat',
-																	_liuyang1204$elm_notation$Notation_Basic$flat(
+																	'noteHead black',
+																	A2(
+																		_liuyang1204$elm_notation$Notation_Basic$noteHead,
+																		_liuyang1204$elm_notation$Notation_Basic$black,
 																		{ctor: '[]'})),
 																_1: {
 																	ctor: '::',
 																	_0: A2(
 																		_liuyang1204$elm_notation$DrawPreview$coordinate,
-																		'sharp',
-																		_liuyang1204$elm_notation$Notation_Basic$sharp(
+																		'stem 4',
+																		A2(
+																			_liuyang1204$elm_notation$Notation_Basic$stem,
+																			4,
 																			{ctor: '[]'})),
 																	_1: {
 																		ctor: '::',
 																		_0: A2(
 																			_liuyang1204$elm_notation$DrawPreview$coordinate,
-																			'natural',
-																			_liuyang1204$elm_notation$Notation_Basic$natural(
+																			'augmentationDot',
+																			_liuyang1204$elm_notation$Notation_Basic$augmentationDot(
 																				{ctor: '[]'})),
 																		_1: {
 																			ctor: '::',
 																			_0: A2(
 																				_liuyang1204$elm_notation$DrawPreview$coordinate,
-																				'doubleFlat',
-																				_liuyang1204$elm_notation$Notation_Basic$doubleFlat(
+																				'flat',
+																				_liuyang1204$elm_notation$Notation_Basic$flat(
 																					{ctor: '[]'})),
 																			_1: {
 																				ctor: '::',
 																				_0: A2(
 																					_liuyang1204$elm_notation$DrawPreview$coordinate,
-																					'doubleSharp',
-																					_liuyang1204$elm_notation$Notation_Basic$doubleSharp(
+																					'sharp',
+																					_liuyang1204$elm_notation$Notation_Basic$sharp(
 																						{ctor: '[]'})),
-																				_1: {ctor: '[]'}
+																				_1: {
+																					ctor: '::',
+																					_0: A2(
+																						_liuyang1204$elm_notation$DrawPreview$coordinate,
+																						'natural',
+																						_liuyang1204$elm_notation$Notation_Basic$natural(
+																							{ctor: '[]'})),
+																					_1: {
+																						ctor: '::',
+																						_0: A2(
+																							_liuyang1204$elm_notation$DrawPreview$coordinate,
+																							'doubleFlat',
+																							_liuyang1204$elm_notation$Notation_Basic$doubleFlat(
+																								{ctor: '[]'})),
+																						_1: {
+																							ctor: '::',
+																							_0: A2(
+																								_liuyang1204$elm_notation$DrawPreview$coordinate,
+																								'doubleSharp',
+																								_liuyang1204$elm_notation$Notation_Basic$doubleSharp(
+																									{ctor: '[]'})),
+																							_1: {
+																								ctor: '::',
+																								_0: A2(
+																									_liuyang1204$elm_notation$DrawPreview$coordinate,
+																									'flag8thUp',
+																									_liuyang1204$elm_notation$Notation_Basic$flag8thUp(
+																										{ctor: '[]'})),
+																								_1: {
+																									ctor: '::',
+																									_0: A2(
+																										_liuyang1204$elm_notation$DrawPreview$coordinate,
+																										'flag8thDown',
+																										_liuyang1204$elm_notation$Notation_Basic$flag8thDown(
+																											{ctor: '[]'})),
+																									_1: {
+																										ctor: '::',
+																										_0: A2(
+																											_liuyang1204$elm_notation$DrawPreview$coordinate,
+																											'flag16thUp',
+																											_liuyang1204$elm_notation$Notation_Basic$flag16thUp(
+																												{ctor: '[]'})),
+																										_1: {
+																											ctor: '::',
+																											_0: A2(
+																												_liuyang1204$elm_notation$DrawPreview$coordinate,
+																												'flag16thDown',
+																												_liuyang1204$elm_notation$Notation_Basic$flag16thDown(
+																													{ctor: '[]'})),
+																											_1: {ctor: '[]'}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
 																			}
 																		}
 																	}
@@ -9400,6 +9639,182 @@ var _liuyang1204$elm_notation$DrawPreview$main = _elm_lang$virtual_dom$Native_Vi
 								}
 							}
 						}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$h1,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Component: notes'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$style(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'flex-wrap', _1: 'wrap'},
+											_1: {ctor: '[]'}
+										}
+									}),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_liuyang1204$elm_notation$DrawPreview$coordinate,
+									'note {duration = 0}',
+									A2(
+										_elm_lang$svg$Svg$g,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: A2(
+												_liuyang1204$elm_notation$Notation_Component$note,
+												{duration: 0},
+												{ctor: '[]'}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_liuyang1204$elm_notation$Notation_Basic$staff5Line,
+													4,
+													{
+														ctor: '::',
+														_0: _liuyang1204$elm_notation$Notation_Helper$translate(
+															{ctor: '_Tuple2', _0: -1, _1: -3.5}),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}
+										})),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_liuyang1204$elm_notation$DrawPreview$coordinate,
+										'note {duration = 1}',
+										A2(
+											_elm_lang$svg$Svg$g,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: A2(
+													_liuyang1204$elm_notation$Notation_Component$note,
+													{duration: 1},
+													{ctor: '[]'}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_liuyang1204$elm_notation$Notation_Basic$staff5Line,
+														4,
+														{
+															ctor: '::',
+															_0: _liuyang1204$elm_notation$Notation_Helper$translate(
+																{ctor: '_Tuple2', _0: -1, _1: -3.5}),
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}
+											})),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_liuyang1204$elm_notation$DrawPreview$coordinate,
+											'note {duration = 2}',
+											A2(
+												_elm_lang$svg$Svg$g,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: A2(
+														_liuyang1204$elm_notation$Notation_Component$note,
+														{duration: 2},
+														{ctor: '[]'}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_liuyang1204$elm_notation$Notation_Basic$staff5Line,
+															4,
+															{
+																ctor: '::',
+																_0: _liuyang1204$elm_notation$Notation_Helper$translate(
+																	{ctor: '_Tuple2', _0: -1, _1: -3.5}),
+																_1: {ctor: '[]'}
+															}),
+														_1: {ctor: '[]'}
+													}
+												})),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_liuyang1204$elm_notation$DrawPreview$coordinate,
+												'note {duration = 3}',
+												A2(
+													_elm_lang$svg$Svg$g,
+													{ctor: '[]'},
+													{
+														ctor: '::',
+														_0: A2(
+															_liuyang1204$elm_notation$Notation_Component$note,
+															{duration: 3},
+															{ctor: '[]'}),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_liuyang1204$elm_notation$Notation_Basic$staff5Line,
+																4,
+																{
+																	ctor: '::',
+																	_0: _liuyang1204$elm_notation$Notation_Helper$translate(
+																		{ctor: '_Tuple2', _0: -1, _1: -3.5}),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {ctor: '[]'}
+														}
+													})),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_liuyang1204$elm_notation$DrawPreview$coordinate,
+													'note {duration = 4}',
+													A2(
+														_elm_lang$svg$Svg$g,
+														{ctor: '[]'},
+														{
+															ctor: '::',
+															_0: A2(
+																_liuyang1204$elm_notation$Notation_Component$note,
+																{duration: 4},
+																{ctor: '[]'}),
+															_1: {
+																ctor: '::',
+																_0: A2(
+																	_liuyang1204$elm_notation$Notation_Basic$staff5Line,
+																	4,
+																	{
+																		ctor: '::',
+																		_0: _liuyang1204$elm_notation$Notation_Helper$translate(
+																			{ctor: '_Tuple2', _0: -1, _1: -3.5}),
+																		_1: {ctor: '[]'}
+																	}),
+																_1: {ctor: '[]'}
+															}
+														})),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
 					}
 				}
 			}
