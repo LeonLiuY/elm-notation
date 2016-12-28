@@ -69,7 +69,7 @@ stemForDirection direction =
             stem (stemLengthStandard - (Tuple.second noteHeadMeta.stemUpSE))
                 [ let
                     x =
-                        (Tuple.first noteHeadMeta.stemUpSE) - stemThickness / 2
+                        (Tuple.first noteHeadMeta.stemUpSE) - stemThickness
 
                     y =
                         -stemLengthStandard
@@ -81,7 +81,7 @@ stemForDirection direction =
             stem (stemLengthStandard + (Tuple.second noteHeadMeta.stemDownNW))
                 [ let
                     x =
-                        (Tuple.first noteHeadMeta.stemDownNW) + stemThickness / 2
+                        (Tuple.first noteHeadMeta.stemDownNW)
 
                     y =
                         -(Tuple.second noteHeadMeta.stemDownNW)

@@ -147,11 +147,11 @@ black =
     Black
 
 
-{-| Draw a stem line from (0, 0) to (0, length). The thickness of the line are equally divided by the y-axis.
+{-| Draw a stem line from (0, 0) to (0, length). The left end is attached to y-axis.
 -}
 stem : Float -> List (Attribute msg) -> Svg msg
 stem length attr =
-    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 "0", y2 (toString length), stroke Var.color, strokeWidth (toString Var.stemThickness) ] ++ attr) []) length attr
+    lazy2 (\length attr -> rect ([ x "0", y "0", width (toString Var.stemThickness), height (toString length), strokeWidth "0", fill Var.color ] ++ attr) []) length attr
 
 
 {-| Draw a augmentation dot centered at (0, 0).
