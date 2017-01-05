@@ -1,23 +1,9 @@
 require 'json'
+require 'erb'
 
-json = File.read('../lib/bravura_metadata.json')
+fontMeta = JSON.parse(File.read('../ref/bravura_metadata.json'), object_class: OpenStruct)
+renderer = ERB.new File.read('./font_meta.erb')
 
-def indent(content)
-    content.lines.map{|line| '    ' + line}.join
-end
-
-#wrap keys start with number
-def wrap(key)
-    "x" + key
-end
-
-def toElm(meta)
-    if meta.is_a? Hash
-        "{\n" + indent(meta.map {|key, value| "#{wrap(key)} = #{toElm(value)}" }.join(",\n")) + "\n}"
-    elsif meta.is_a? Array
-        "[\n" + indent(meta.map {|value| toElm(value) }.join(",\n")) + "\n]"
-    else
-        meta.inspect
-    end
-end
-File.write('./Meta.elm', toElm(JSON.parse(json)))
+File.open('../src/Notation/FontMeta.elm', 'w') { |f|
+  f.write renderer.result
+}

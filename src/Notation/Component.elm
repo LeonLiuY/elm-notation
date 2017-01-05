@@ -10,6 +10,7 @@ import Svg.Lazy exposing (..)
 import Svg exposing (..)
 import Notation.Variables exposing (..)
 import Notation.Helper exposing (..)
+import Notation.FontMeta exposing (..)
 
 
 type alias Note =
@@ -31,45 +32,41 @@ note n attr =
                 1 ->
                     g ([] ++ attr)
                         [ noteHead half []
-                        , stemForDirection n.stemDirection
+                        , stemForDirection n.stemDirection glyphsWithAnchors.noteheadHalf
                         ]
 
                 2 ->
                     g ([] ++ attr)
                         [ noteHead black []
-                        , stemForDirection n.stemDirection
+                        , stemForDirection n.stemDirection glyphsWithAnchors.noteheadBlack
                         ]
 
                 3 ->
                     g ([] ++ attr)
                         [ noteHead black []
-                        , stemForDirection n.stemDirection
-                        , flagForStem n.stemDirection flag8th
+                        , stemForDirection n.stemDirection glyphsWithAnchors.noteheadBlack
+                        , flagForStem n.stemDirection flag8th glyphsWithAnchors.noteheadBlack
                         ]
 
                 _ ->
                     g ([] ++ attr)
                         [ noteHead black []
-                        , stemForDirection n.stemDirection
-                        , flagForStem n.stemDirection flag16th
+                        , stemForDirection n.stemDirection glyphsWithAnchors.noteheadBlack
+                        , flagForStem n.stemDirection flag16th glyphsWithAnchors.noteheadBlack
                         ]
         )
         n
         attr
 
 
-
-{- Private -}
-
-
-stemForDirection : Direction -> Svg msg
-stemForDirection direction =
+stemForDirection : Direction -> { a | stemUpSE : ( Float, Float ), stemDownNW : ( Float, Float ) } -> Svg msg
+stemForDirection direction meta =
     case direction of
         Up ->
-            stem (stemLengthStandard - (Tuple.second noteHeadMeta.stemUpSE))
+            stem (stemLengthStandard - (Tuple.second meta.stemUpSE))
                 [ let
                     x =
-                        (Tuple.first noteHeadMeta.stemUpSE) - stemThickness
+                        (Tuple.first meta.stemUpSE) - engravingDefaults.stemThickness
 
                     y =
                         -stemLengthStandard
@@ -78,29 +75,29 @@ stemForDirection direction =
                 ]
 
         Down ->
-            stem (stemLengthStandard + (Tuple.second noteHeadMeta.stemDownNW))
+            stem (stemLengthStandard + (Tuple.second meta.stemDownNW))
                 [ let
                     x =
-                        (Tuple.first noteHeadMeta.stemDownNW)
+                        (Tuple.first meta.stemDownNW)
 
                     y =
-                        -(Tuple.second noteHeadMeta.stemDownNW)
+                        -(Tuple.second meta.stemDownNW)
                   in
                     translate ( x, y )
                 ]
 
 
-flagForStem : Direction -> (Direction -> List (Attribute msg) -> Svg msg) -> Svg msg
-flagForStem direction flag =
+flagForStem : Direction -> (Direction -> List (Attribute msg) -> Svg msg) -> { a | stemUpSE : ( Float, Float ), stemDownNW : ( Float, Float ) } -> Svg msg
+flagForStem direction flag meta =
     flag direction
         [ let
             movement =
                 case direction of
                     Up ->
-                        ( (Tuple.first noteHeadMeta.stemUpSE), -stemLengthStandard )
+                        ( (Tuple.first meta.stemUpSE), -stemLengthStandard )
 
                     Down ->
-                        ( (Tuple.first noteHeadMeta.stemDownNW), stemLengthStandard )
+                        ( (Tuple.first meta.stemDownNW), stemLengthStandard )
           in
             translate movement
         ]

@@ -39,13 +39,14 @@ import Svg exposing (..)
 import Svg.Lazy exposing (..)
 import Svg.Attributes exposing (..)
 import Notation.Variables as Var
+import Notation.FontMeta exposing (..)
 
 
 {-| Draw a single staff line from (0, 0) to (length , 0). The thickness of the line are equally divided by the x-axis.
 -}
 staffLine : Float -> List (Attribute msg) -> Svg msg
 staffLine length attr =
-    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 (toString length), y2 "0", stroke Var.color, strokeWidth (toString Var.staffLineThickness) ] ++ attr) []) length attr
+    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 (toString length), y2 "0", stroke Var.color, strokeWidth (toString engravingDefaults.staffLineThickness) ] ++ attr) []) length attr
 
 
 {-| Draw a standard five-line stave, where the top line lies on the x-axis from (0, 0) to (length , 0).
@@ -59,14 +60,14 @@ staff5Line length attr =
 -}
 barlineThick : Float -> List (Attribute msg) -> Svg msg
 barlineThick length attr =
-    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 "0", y2 (toString length), stroke Var.color, strokeWidth (toString Var.thickBarlineThickness) ] ++ attr) []) length attr
+    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 "0", y2 (toString length), stroke Var.color, strokeWidth (toString engravingDefaults.thickBarlineThickness) ] ++ attr) []) length attr
 
 
 {-| Draw a thin barline from (0, 0) to (0, length) on the y-axis.
 -}
 barlineThin : Float -> List (Attribute msg) -> Svg msg
 barlineThin length attr =
-    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 "0", y2 (toString length), stroke Var.color, strokeWidth (toString Var.thinBarlineThickness) ] ++ attr) []) length attr
+    lazy2 (\length attr -> line ([ x1 "0", y1 "0", x2 "0", y2 (toString length), stroke Var.color, strokeWidth (toString engravingDefaults.thinBarlineThickness) ] ++ attr) []) length attr
 
 
 {-| Draw a celf, which takes the x-axis as the placement line on a stave and left ended at y-axis
@@ -151,7 +152,7 @@ black =
 -}
 stem : Float -> List (Attribute msg) -> Svg msg
 stem length attr =
-    lazy2 (\length attr -> rect ([ x "0", y "0", width (toString Var.stemThickness), height (toString length), strokeWidth "0", fill Var.color ] ++ attr) []) length attr
+    lazy2 (\length attr -> rect ([ x "0", y "0", width (toString engravingDefaults.stemThickness), height (toString length), strokeWidth "0", fill Var.color ] ++ attr) []) length attr
 
 
 {-| Draw a augmentation dot centered at (0, 0).
@@ -259,7 +260,7 @@ type NoteHead
 
 beamOffset : ( Float, Float ) -> Float
 beamOffset ( x, y ) =
-    sqrt (x ^ 2 + y ^ 2) / x * Var.beamThickness
+    sqrt (x ^ 2 + y ^ 2) / x * engravingDefaults.beamThickness
 
 
 pointAsString : ( Float, Float ) -> String

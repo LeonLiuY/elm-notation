@@ -25,6 +25,9 @@ guard 'livereload' do
   watch(%r{.+\.elm}) {
     `#{CMD}`
   }
+  watch("tools/font_meta.erb") {
+    `cd tools && ruby json-to-elm.rb && echo "Successfully generated FontMeta.elm"`
+  }
 
-  callback(:start_begin) { `#{CMD}` }
+  callback(:start_begin) { `(cd tools && ruby json-to-elm.rb) && #{CMD}` }
 end
