@@ -27,30 +27,30 @@ note n attr =
         (\n attr ->
             case n.duration of
                 0 ->
-                    noteHead whole attr
+                    noteHead Whole attr
 
                 1 ->
                     g ([] ++ attr)
-                        [ noteHead half []
+                        [ noteHead Half []
                         , stemForDirection n.stemDirection glyphsWithAnchors.noteheadHalf
                         ]
 
                 2 ->
                     g ([] ++ attr)
-                        [ noteHead black []
+                        [ noteHead Black []
                         , stemForDirection n.stemDirection glyphsWithAnchors.noteheadBlack
                         ]
 
                 3 ->
                     g ([] ++ attr)
-                        [ noteHead black []
+                        [ noteHead Black []
                         , stemForDirection n.stemDirection glyphsWithAnchors.noteheadBlack
                         , flagForStem n.stemDirection flag8th glyphsWithAnchors.noteheadBlack
                         ]
 
                 _ ->
                     g ([] ++ attr)
-                        [ noteHead black []
+                        [ noteHead Black []
                         , stemForDirection n.stemDirection glyphsWithAnchors.noteheadBlack
                         , flagForStem n.stemDirection flag16th glyphsWithAnchors.noteheadBlack
                         ]

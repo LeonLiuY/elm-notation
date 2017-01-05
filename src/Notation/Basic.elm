@@ -5,14 +5,9 @@ module Notation.Basic
         , barlineThick
         , barlineThin
         , clef
-        , gClef
-        , fClef
         , beamUpper
         , beamLower
         , noteHead
-        , whole
-        , half
-        , black
         , stem
         , augmentationDot
         , flat
@@ -22,6 +17,8 @@ module Notation.Basic
         , doubleSharp
         , flag8th
         , flag16th
+        , Clef(..)
+        , NoteHead(..)
         , Direction(..)
         )
 
@@ -32,7 +29,7 @@ Each component specifies the detailed formation of the component.
 All length parameters are the measurements expressed in staff spaces.
 
 # Components
-@docs staffLine, staff5Line, barlineThick, barlineThin, clef, gClef, fClef, beamUpper, beamLower, noteHead, whole, half, black, stem, augmentationDot, flat, sharp, natural, doubleFlat, doubleSharp, flag8th, flag16th, Direction
+@docs staffLine, staff5Line, barlineThick, barlineThin, clef, beamUpper, beamLower, noteHead, stem, augmentationDot, flat, sharp, natural, doubleFlat, doubleSharp, flag8th, flag16th, Clef, NoteHead, Direction
 -}
 
 import Svg exposing (..)
@@ -77,18 +74,6 @@ clef c attr =
     lazy2 (\c attr -> glyph (stringOfClef c) attr) c attr
 
 
-{-| -}
-gClef : Clef
-gClef =
-    GClef
-
-
-{-| -}
-fClef : Clef
-fClef =
-    FClef
-
-
 {-| Draw a beam, with the left-top corner (0, 0), and right-top corner (x, y).
     left-bottom and right-bottom corners will be adjusted to satisfy beamThickness.
 -}
@@ -128,24 +113,6 @@ beamLower ( x, y ) attr =
 noteHead : NoteHead -> List (Attribute msg) -> Svg msg
 noteHead value attr =
     lazy2 (\value attr -> glyph (stringOfNoteValue value) attr) value attr
-
-
-{-| -}
-whole : NoteHead
-whole =
-    Whole
-
-
-{-| -}
-half : NoteHead
-half =
-    Half
-
-
-{-| -}
-black : NoteHead
-black =
-    Black
 
 
 {-| Draw a stem line from (0, 0) to (0, length). The left end is attached to y-axis.
@@ -241,10 +208,6 @@ type Direction
     | Down
 
 
-
--- private
-
-
 {-| -}
 type Clef
     = GClef
@@ -256,6 +219,10 @@ type NoteHead
     = Whole
     | Half
     | Black
+
+
+
+-- private
 
 
 beamOffset : ( Float, Float ) -> Float

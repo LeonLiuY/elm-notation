@@ -7,7 +7,6 @@ import Svg exposing (..)
 import Svg.Attributes exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Notation.Variables as Var
 
 
 main : Html msg
@@ -19,13 +18,13 @@ main =
             , coordinate "staff5Line 4" <| staff5Line 4 []
             , coordinate "barlineThick" <| barlineThick 4 []
             , coordinate "barlineThin" <| barlineThin 4 []
-            , coordinate "clef gClef" <| clef gClef []
-            , coordinate "clef fClef" <| clef fClef []
+            , coordinate "clef gClef" <| clef GClef []
+            , coordinate "clef fClef" <| clef FClef []
             , coordinate "beamLower ( 4, 2 )" <| beamLower ( 4, 2 ) []
             , coordinate "beamUpper ( 4, -4 )" <| beamUpper ( 4, -4 ) []
-            , coordinate "noteHead whole" <| noteHead whole []
-            , coordinate "noteHead half" <| noteHead half []
-            , coordinate "noteHead black" <| noteHead black []
+            , coordinate "noteHead Whole" <| noteHead Whole []
+            , coordinate "noteHead Half" <| noteHead Half []
+            , coordinate "noteHead Black" <| noteHead Black []
             , coordinate "stem 4" <| stem 4 []
             , coordinate "augmentationDot" <| augmentationDot []
             , coordinate "flat" <| flat []
