@@ -1,34 +1,38 @@
 module Notation.FontMeta exposing (..)
 
-fontName = "<%=fontMeta.fontName%>"
 
-engravingDefaults = {
-  beamThickness = <%=fontMeta.engravingDefaults.beamThickness%>,
-  staffLineThickness = <%=fontMeta.engravingDefaults.staffLineThickness%>,
-  thickBarlineThickness = <%=fontMeta.engravingDefaults.thickBarlineThickness%>,
-  thinBarlineThickness = <%=fontMeta.engravingDefaults.thinBarlineThickness%>,
-  stemThickness = <%=fontMeta.engravingDefaults.stemThickness%>
- }
+fontName =
+    "<%=fontMeta.fontName%>"
 
-glyphsWithAnchors = {
- noteheadHalf = {
-   stemDownNW = (
-       <%=fontMeta.glyphsWithAnchors.noteheadHalf.stemDownNW.first%>,
-       <%=fontMeta.glyphsWithAnchors.noteheadHalf.stemDownNW.last%>
-   ),
-   stemUpSE = (
-       <%=fontMeta.glyphsWithAnchors.noteheadHalf.stemUpSE.first%>,
-       <%=fontMeta.glyphsWithAnchors.noteheadHalf.stemUpSE.last%>
-   )
- },
- noteheadBlack = {
-   stemDownNW = (
-       <%=fontMeta.glyphsWithAnchors.noteheadBlack.stemDownNW.first%>,
-       <%=fontMeta.glyphsWithAnchors.noteheadBlack.stemDownNW.last%>
-   ),
-   stemUpSE = (
-       <%=fontMeta.glyphsWithAnchors.noteheadBlack.stemUpSE.first%>,
-       <%=fontMeta.glyphsWithAnchors.noteheadBlack.stemUpSE.last%>
-   )
-  }
- }
+
+engravingDefaults =
+    { beamThickness = <%=fontMeta.engravingDefaults.beamThickness%>
+    , staffLineThickness = <%=fontMeta.engravingDefaults.staffLineThickness%>
+    , thickBarlineThickness = <%=fontMeta.engravingDefaults.thickBarlineThickness%>
+    , thinBarlineThickness = <%=fontMeta.engravingDefaults.thinBarlineThickness%>
+    , stemThickness = <%=fontMeta.engravingDefaults.stemThickness%>
+    }
+
+
+glyphsWithAnchors =
+    { noteheadHalf =
+        { stemDownNW =
+            ( <%=fontMeta.glyphsWithAnchors.noteheadHalf.stemDownNW.first%>
+            , <%=fontMeta.glyphsWithAnchors.noteheadHalf.stemDownNW.last%>
+            )
+        , stemUpSE =
+            ( <%=fontMeta.glyphsWithAnchors.noteheadHalf.stemUpSE.first%>
+            , <%=fontMeta.glyphsWithAnchors.noteheadHalf.stemUpSE.last%>
+            )
+        }
+    , noteheadBlack =
+        { stemDownNW =
+            ( <%=fontMeta.glyphsWithAnchors.noteheadBlack.stemDownNW.first%>
+            , <%=fontMeta.glyphsWithAnchors.noteheadBlack.stemDownNW.last%>
+            )
+        , stemUpSE =
+            ( <%=fontMeta.glyphsWithAnchors.noteheadBlack.stemUpSE.first%>
+            , <%=fontMeta.glyphsWithAnchors.noteheadBlack.stemUpSE.last%>
+            )
+        }
+    }
