@@ -2,10 +2,6 @@ language: node_js
 node_js:
   - "4.0"
 
-cache:
-  directories:
-    - elm-stuff
-
 install:
   - npm install -g elm
   - elm-package install -y
