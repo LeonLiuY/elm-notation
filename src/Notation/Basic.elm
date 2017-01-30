@@ -236,7 +236,7 @@ slur p1 p2 p3 attr =
         (\( ( x1, y1 ), ( x2, y2 ), ( x3, y3 ), attr ) ->
             let
                 gap =
-                    (engravingDefaults.slurMidpointThickness - engravingDefaults.slurEndpointThickness) / 3
+                    (engravingDefaults.slurMidpointThickness - engravingDefaults.slurEndpointThickness) * 4 / 3
 
                 dx =
                     x1 - x2
@@ -255,7 +255,7 @@ slur p1 p2 p3 attr =
                                 dy / dx
 
                             distanceY =
-                                sqrt (gap * gap / (ratio * ratio + 1))
+                                gap / sqrt (ratio * ratio + 1)
 
                             distanceX =
                                 ratio * distanceY
