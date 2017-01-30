@@ -20,6 +20,7 @@ module Notation.Basic
         , Clef(..)
         , NoteHead(..)
         , Direction(..)
+        , slur
         )
 
 {-| Draw kinds of music notations.
@@ -29,7 +30,7 @@ Each component specifies the detailed formation of the component.
 All length parameters are the measurements expressed in staff spaces.
 
 # Components
-@docs staffLine, staff5Line, barlineThick, barlineThin, clef, beamUpper, beamLower, noteHead, stem, augmentationDot, flat, sharp, natural, doubleFlat, doubleSharp, flag8th, flag16th, Clef, NoteHead, Direction
+@docs staffLine, staff5Line, barlineThick, barlineThin, clef, beamUpper, beamLower, noteHead, stem, augmentationDot, flat, sharp, natural, doubleFlat, doubleSharp, flag8th, flag16th, Clef, NoteHead, Direction, slur
 -}
 
 import Svg exposing (..)
@@ -37,6 +38,10 @@ import Svg.Lazy exposing (..)
 import Svg.Attributes exposing (..)
 import Notation.Variables as Var
 import Notation.FontMeta exposing (..)
+
+
+type alias Point =
+    ( Float, Float )
 
 
 {-| Draw a single staff line from (0, 0) to (length , 0). The thickness of the line are equally divided by the x-axis.
@@ -77,7 +82,7 @@ clef c attr =
 {-| Draw a beam, with the left-top corner (0, 0), and right-top corner (x, y).
     left-bottom and right-bottom corners will be adjusted to satisfy beamThickness.
 -}
-beamUpper : ( Float, Float ) -> List (Attribute msg) -> Svg msg
+beamUpper : Point -> List (Attribute msg) -> Svg msg
 beamUpper ( x, y ) attr =
     let
         pts =
@@ -94,7 +99,7 @@ beamUpper ( x, y ) attr =
 {-| Draw a beam, with the left-bottom corner (0, 0), and right-bottom corner (x, y).
     left-top and right-top corners will be adjusted to satisfy beamThickness.
 -}
-beamLower : ( Float, Float ) -> List (Attribute msg) -> Svg msg
+beamLower : Point -> List (Attribute msg) -> Svg msg
 beamLower ( x, y ) attr =
     let
         pts =
@@ -168,8 +173,8 @@ doubleFlat attr =
 -}
 flag8th : Direction -> List (Attribute msg) -> Svg msg
 flag8th direction attr =
-    lazy
-        (\attr ->
+    lazy2
+        (\direction attr ->
             glyph
                 (case direction of
                     Up ->
@@ -180,6 +185,7 @@ flag8th direction attr =
                 )
                 attr
         )
+        direction
         attr
 
 
@@ -187,8 +193,8 @@ flag8th direction attr =
 -}
 flag16th : Direction -> List (Attribute msg) -> Svg msg
 flag16th direction attr =
-    lazy
-        (\attr ->
+    lazy2
+        (\direction attr ->
             glyph
                 (case direction of
                     Up ->
@@ -199,6 +205,7 @@ flag16th direction attr =
                 )
                 attr
         )
+        direction
         attr
 
 
@@ -221,6 +228,54 @@ type NoteHead
     | Black
 
 
+{-| Draw cubic bézier curve from (0,0) to p3, the thickness is equally added to both side of the original zero-width curve
+-}
+slur : Point -> Point -> Point -> List (Attribute msg) -> Svg msg
+slur p1 p2 p3 attr =
+    lazy
+        (\( ( x1, y1 ), ( x2, y2 ), ( x3, y3 ), attr ) ->
+            let
+                gap =
+                    (engravingDefaults.slurMidpointThickness - engravingDefaults.slurEndpointThickness) / 3
+
+                dx =
+                    x1 - x2
+
+                dy =
+                    y1 - y2
+
+                ( x1a, y1a, x2a, y2a, x1b, y1b, x2b, y2b ) =
+                    if dx == 0 then
+                        ( x1 - gap / 2, y1, x2 - gap / 2, y2, x1 + gap / 2, y1, x2 + gap / 2, y2 )
+                    else if dy == 0 then
+                        ( x1, y1 - gap / 2, x2, y2 - gap / 2, x1, y1 + gap / 2, x2, y2 + gap / 2 )
+                    else
+                        let
+                            ratio =
+                                dy / dx
+
+                            distanceY =
+                                sqrt (gap * gap / (ratio * ratio + 1))
+
+                            distanceX =
+                                ratio * distanceY
+                        in
+                            ( x1 - distanceX / 2, y1 - distanceY / 2, x2 - distanceX / 2, y2 - distanceY / 2, x1 + distanceX / 2, y1 + distanceY / 2, x2 + distanceX / 2, y2 + distanceY / 2 )
+
+                spaceJoin f1 f2 =
+                    String.join " " [ toString f1, toString f2 ]
+
+                commaJoin f1 f2 f3 f4 f5 f6 =
+                    String.join ", " [ spaceJoin f1 f2, spaceJoin f3 f4, spaceJoin f5 f6 ]
+
+                pathAttr =
+                    "M0 0 C " ++ commaJoin x1a y1a x2a y2a x3 y3 ++ " C " ++ commaJoin x2b y2b x1b y1b 0 0 ++ " Z"
+            in
+                Svg.path ([ d pathAttr, fill "black", strokeWidth (toString engravingDefaults.slurEndpointThickness), strokeLinejoin "round", stroke Var.color ] ++ attr) []
+        )
+        ( p1, p2, p3, attr )
+
+
 
 -- private
 
@@ -230,7 +285,7 @@ beamOffset ( x, y ) =
     sqrt (x ^ 2 + y ^ 2) / x * engravingDefaults.beamThickness
 
 
-pointAsString : ( Float, Float ) -> String
+pointAsString : Point -> String
 pointAsString ( x, y ) =
     String.join "," [ toString x, toString y ]
 

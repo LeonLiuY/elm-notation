@@ -11,6 +11,8 @@ engravingDefaults =
     , thickBarlineThickness = 0.5
     , thinBarlineThickness = 0.16
     , stemThickness = 0.12
+    , slurEndpointThickness = 0.1
+    , slurMidpointThickness = 0.22
     }
 
 
